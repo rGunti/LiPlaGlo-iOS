@@ -1,0 +1,223 @@
+[
+  {
+    "identifier": "A",
+    "title": "Administration",
+    "inUse": false,
+    "remarks": "Zivile Fahrzeuge des Bundes trugen früher das Schweizerwappen gefolgt von einem «A» (Kürzel für «Administration») und der Nummer mit schwarzen Zeichen auf weissem Grund. Sie trugen auch kein Kantonswappen. Die erste Ziffer der fünfstelligen Nummer stand für das Departement, zu dem das Fahrzeug gehörte. Diese Kontrollschilder werden nicht mehr verwendet. Die Amtsstellen erhalten heute normale Kontrollschilder des Kantons. Einzige Ausnahme bilden die Bereiche Verteidigung und armasuisse innerhalb des VBS, welche die Armeenummern mit Schweizerwappen und weissem «M» auf schwarzem Grund verwenden.",
+    "pattern": "A 12345",
+    "links": [
+        {
+            "text": "Kontrollschild (Schweiz) – Wikipedia",
+            "url": "https://de.wikipedia.org/wiki/Kontrollschild_(Schweiz)#Nicht_mehr_verwendete_Kontrollschildtypen"
+        }
+    ]
+  },
+  {
+    "identifier": "AG",
+    "title": "Aargau",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "AG 123 456"
+  },
+  {
+    "identifier": "AI",
+    "title": "Appenzell Innerrhoden",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "AI 123 456"
+  },
+  {
+    "identifier": "AR",
+    "title": "Appenzell Ausserrhoden",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "AR 123 456"
+  },
+  {
+    "identifier": "BE",
+    "title": "Bern",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "BE 123 456"
+  },
+  {
+    "identifier": "BL",
+    "title": "Basel-Land",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "BL 123 456"
+  },
+  {
+    "identifier": "BS",
+    "title": "Basel-Stadt",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "BS 123 456"
+  },
+  {
+    "identifier": "FR",
+    "title": "Fribourg",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "FR 123 456"
+  },
+  {
+    "identifier": "GE",
+    "title": "Genf",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "GE 123 456"
+  },
+  {
+    "identifier": "GL",
+    "title": "Glarus",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "GL 123 456"
+  },
+  {
+    "identifier": "GR",
+    "title": "Graubünden",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "GR 123 456"
+  },
+  {
+    "identifier": "JU",
+    "title": "Jura",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "JU 123 456"
+  },
+  {
+    "identifier": "LU",
+    "title": "Luzern",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "LU 123 456"
+  },
+  {
+    "identifier": "M",
+    "title": "Militär",
+    "inUse": true,
+    "remarks": "Militärfahrzeuge (Fahrzeuge der Armee und Verwaltungsfahrzeuge des Departementsbereichs Verteidigung), Fahrzeuge des Grenzwachtkorps, der Zolluntersuchungsbehörden, der armasuisse sowie des Nachrichtendienstes des Bundes werden durch das Strassenverkehrs- und Schifffahrtsamt der Armee (SVSAA) mit Militärkontrollschildern immatrikuliert (Art. 28 Abs. 1 VFBF).",
+    "pattern": "M 123 456",
+    "links": [
+        {
+            "text": "\"Militärische Fahrzeuge\" – Kontrollschild (Schweiz) – Wikipedia",
+            "url": "https://de.wikipedia.org/wiki/Kontrollschild_(Schweiz)#Milit%C3%A4rische_Fahrzeuge"
+        }
+    ]
+  },
+  {
+    "identifier": "NE",
+    "title": "Neuenburg",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "NE 123 456"
+  },
+  {
+    "identifier": "NW",
+    "title": "Nidwalden",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "NW 123 456"
+  },
+  {
+    "identifier": "OW",
+    "title": "Obwalden",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "OW 123 456"
+  },
+  {
+    "identifier": "P",
+    "title": "Post",
+    "inUse": false,
+    "remarks": "Post, Telegraf und Telefon (PTT) sowie die Schweizerischen Bundesbahnen (SBB) waren bis 1997/98 Teil der Bundesverwaltung, ihre Fahrzeuge trugen das Schweizerwappen gefolgt von einem «P» (Kürzel für «Post») und der Nummer mit schwarzen Zeichen auf weissem, gelbem oder blauem Grund. Die Post und die SBB blieben nach der Verselbständigung vollständig in Bundesbesitz und konnten die P-Schilder vorerst weiterverwenden, hingegen mussten die Fahrzeuge des Telecom-Bereichs, die ab 1. Januar 1998 zur teilprivatisierten Swisscom gehörten, sofort auf kantonale Nummernschilder wechseln.",
+    "pattern": "P 12345",
+    "links": [
+        {
+            "text": "Kontrollschild (Schweiz) – Wikipedia",
+            "url": "https://de.wikipedia.org/wiki/Kontrollschild_(Schweiz)#Nicht_mehr_verwendete_Kontrollschildtypen"
+        }
+    ]
+  },
+  {
+    "identifier": "SG",
+    "title": "St. Gallen",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "SG 123 456"
+  },
+  {
+    "identifier": "SH",
+    "title": "Schaffhausen",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "SH 123 456"
+  },
+  {
+    "identifier": "SO",
+    "title": "Solothurn",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "SO 123 456"
+  },
+  {
+    "identifier": "SZ",
+    "title": "Schwyz",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "SZ 123 456"
+  },
+  {
+    "identifier": "TG",
+    "title": "Thurgau",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "TG 123 456"
+  },
+  {
+    "identifier": "TI",
+    "title": "Tessin",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "TI 123 456"
+  },
+  {
+    "identifier": "UR",
+    "title": "Uri",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "UR 123 456"
+  },
+  {
+    "identifier": "VD",
+    "title": "Waadt",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "VD 123 456"
+  },
+  {
+    "identifier": "VS",
+    "title": "Wallis",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "VS 123 456"
+  },
+  {
+    "identifier": "ZG",
+    "title": "Zug",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "ZG 123 456"
+  },
+  {
+    "identifier": "ZH",
+    "title": "Zürich",
+    "inUse": true,
+    "remarks": null,
+    "pattern": "ZH 123 456"
+  }
+]
