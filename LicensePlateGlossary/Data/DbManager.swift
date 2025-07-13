@@ -44,12 +44,27 @@ class DbManager {
         }
         return countries
     }
+    
+    func getLinksForCountry(_ countryId: String) -> [CountryLink] {
+        var links: [CountryLink] = []
+        do {
+            for linkRow in try dbConnection.prepare(DbTables.countryLinks
+                .filter(CountryLink.colCountryId == countryId)
+                .order(CountryLink.colId)) {
+                links.append(CountryLink.fromQueryRow(linkRow))
+            }
+        } catch {
+            print("Error when getting countries", error)
+        }
+        return links
+    }
 }
 
 struct DbTables {
     private init() { }
     
     static let countries = Table("countries")
+    static let countryLinks = Table("country_links")
 }
 
 struct Country: Codable {
@@ -64,4 +79,25 @@ struct Country: Codable {
     let flagEmoji: String?
     let defaultFont: String?
     let genericPreview: String?
+}
+
+struct CountryLink: Codable {
+    static let colId = Expression<Int>("id")
+    static let colCountryId = Expression<String>("country_id")
+    static let colLabel = Expression<String?>("label")
+    static let colLink = Expression<String>("link")
+
+    let id: Int
+    let countryId: String
+    let label: String?
+    let link: String
+    
+    static func fromQueryRow(_ row: Row) -> CountryLink {
+        return CountryLink(
+            id: row[CountryLink.colId],
+            countryId: row[CountryLink.colCountryId],
+            label: row[CountryLink.colLabel],
+            link: row[CountryLink.colLink]
+        )
+    }
 }

@@ -11,10 +11,12 @@ import CoreLocation
 
 struct CountryDetail: View {
     let country: Country
+    let links: [CountryLink]
     @StateObject private var vm = CountryDetailViewObject()
 
     init(country: Country) {
         self.country = country
+        self.links = DbManager.instance.getLinksForCountry(country.id)
     }
     
     var body: some View {
@@ -53,6 +55,14 @@ struct CountryDetail: View {
                     Label("Show on Maps", systemImage: "map.circle")
                 }
             }
+            
+            Section("Links") {
+                ForEach(links, id: \.link) { link in
+                    Link(destination: URL(string: link.link)!) {
+                        Label(link.label ?? link.link, systemImage: "link")
+                    }
+                }
+            }
         }
         .navigationTitle(country.name)
     }
@@ -62,6 +72,7 @@ struct CountryDetail: View {
 final class CountryDetailViewObject: ObservableObject {
     @Published var camera: MapCameraPosition = .automatic
     @Published var location: CLLocationCoordinate2D? = nil
+    @Published var links: [CountryLink] = []
 
     func load(_ country: Country) {
         Task {
@@ -88,6 +99,10 @@ final class CountryDetailViewObject: ObservableObject {
         let item = MKMapItem(placemark: placemark)
         item.name = name
         item.openInMaps()
+    }
+    
+    func loadLinks(countryId: String) {
+        links = DbManager.instance.getLinksForCountry(countryId)
     }
 }
 
