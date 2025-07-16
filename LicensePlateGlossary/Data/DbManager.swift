@@ -31,13 +31,7 @@ class DbManager {
         var countries: [Country] = []
         do {
             for countryRow in try dbConnection.prepare(DbTables.countries.order(Country.colId)) {
-                let country = Country(id: countryRow[Country.colId],
-                                      name: countryRow[Country.colName],
-                                      flagEmoji: countryRow[Country.colFlagEmoji],
-                                      defaultFont: countryRow[Country.colDefaultFont],
-                                      genericPreview: countryRow[Country.colGenericPreview]
-                )
-                countries.append(country)
+                countries.append(Country(fromRow: countryRow))
             }
         } catch {
             print("Error when getting countries", error)
@@ -45,18 +39,55 @@ class DbManager {
         return countries
     }
     
-    func getLinksForCountry(_ countryId: String) -> [CountryLink] {
+    func getLinksForCountry(_ countryId: String, forLanguage language: String) -> [CountryLink] {
         var links: [CountryLink] = []
         do {
             for linkRow in try dbConnection.prepare(DbTables.countryLinks
-                .filter(CountryLink.colCountryId == countryId)
+                .filter(CountryLink.colCountryId == countryId && (CountryLink.colLinkLanguage == nil || CountryLink.colLinkLanguage == language))
                 .order(CountryLink.colId)) {
-                links.append(CountryLink.fromQueryRow(linkRow))
+                links.append(CountryLink(fromRow: linkRow))
             }
         } catch {
-            print("Error when getting countries", error)
+            print("Error when getting country links", error)
         }
         return links
+    }
+    
+    func getTranslatedStringEntry(fromKey key: String, forLanguage language: String) -> I18nEntry? {
+        do {
+            for row in try dbConnection.prepare(DbTables.i18n
+                .filter(I18nEntry.colStringKey == key && I18nEntry.colLanguageKey == language)
+                .limit(1)) {
+                return I18nEntry(fromRow: row)
+            }
+        } catch {
+            print("Error when getting i18n string", error)
+        }
+        return nil
+    }
+    
+    func getTranslatedString(fromKey key: String) -> String {
+        if let entry = getTranslatedStringEntry(fromKey: key, forLanguage: getCurrentLanguage(withFallback: defaultFallbackLanguage)) {
+            return entry.value
+        } else if let fallbackEntry = getTranslatedStringEntry(fromKey: key, forLanguage: defaultFallbackLanguage) {
+            return fallbackEntry.value
+        } else {
+            return key
+        }
+    }
+    
+    func getPlateVariantsForCountry(_ countryId: String) -> [PlateVariant] {
+        var variants: [PlateVariant] = []
+        do {
+            for variantRow in try dbConnection.prepare(DbTables.plateVariants
+                .filter(PlateVariant.colCountryId == countryId)
+                .order([PlateVariant.colOrder, PlateVariant.colId])) {
+                variants.append(PlateVariant(fromRow: variantRow))
+            }
+        } catch {
+            print("Error when getting plate variants", error)
+        }
+        return variants
     }
 }
 
@@ -65,6 +96,8 @@ struct DbTables {
     
     static let countries = Table("countries")
     static let countryLinks = Table("country_links")
+    static let i18n = Table("i18n")
+    static let plateVariants = Table("plate_variants")
 }
 
 struct Country: Codable {
@@ -73,12 +106,40 @@ struct Country: Codable {
     static let colFlagEmoji = Expression<String?>("flag_emoji")
     static let colDefaultFont = Expression<String?>("license_plate_font")
     static let colGenericPreview = Expression<String?>("generic_preview")
+    static let colDescription = Expression<String?>("description")
+    static let colVanityPlatesPossible = Expression<Bool>("vanity_plates_possible")
+    static let colVanityPlatesDescription = Expression<String?>("vanity_plates_description")
 
     let id: String
     let name: String
     let flagEmoji: String?
     let defaultFont: String?
     let genericPreview: String?
+    let description: String?
+    let vanityPlatesPossible: Bool
+    let vanityPlatesDescription: String?
+    
+    init(id: String, name: String, flagEmoji: String?, defaultFont: String?, genericPreview: String?, description: String?, vanityPlatesPossible: Bool, vanityPlatesDescription: String?) {
+        self.id = id
+        self.name = name
+        self.flagEmoji = flagEmoji
+        self.defaultFont = defaultFont
+        self.genericPreview = genericPreview
+        self.description = description
+        self.vanityPlatesPossible = vanityPlatesPossible
+        self.vanityPlatesDescription = vanityPlatesDescription
+    }
+    
+    init(fromRow row: Row) {
+        self.id = row[Country.colId]
+        self.name = row[Country.colName]
+        self.flagEmoji = row[Country.colFlagEmoji]
+        self.defaultFont = row[Country.colDefaultFont]
+        self.genericPreview = row[Country.colGenericPreview]
+        self.description = row[Country.colDescription]
+        self.vanityPlatesPossible = row[Country.colVanityPlatesPossible]
+        self.vanityPlatesDescription = row[Country.colVanityPlatesDescription]
+    }
 }
 
 struct CountryLink: Codable {
@@ -86,18 +147,103 @@ struct CountryLink: Codable {
     static let colCountryId = Expression<String>("country_id")
     static let colLabel = Expression<String?>("label")
     static let colLink = Expression<String>("link")
+    static let colLinkLanguage = Expression<String?>("link_language")
 
     let id: Int
     let countryId: String
     let label: String?
     let link: String
+    let linkLanguage: String?
     
-    static func fromQueryRow(_ row: Row) -> CountryLink {
-        return CountryLink(
-            id: row[CountryLink.colId],
-            countryId: row[CountryLink.colCountryId],
-            label: row[CountryLink.colLabel],
-            link: row[CountryLink.colLink]
-        )
+    init(id: Int, countryId: String, label: String?, link: String, linkLanguage: String?) {
+        self.id = id
+        self.countryId = countryId
+        self.label = label
+        self.link = link
+        self.linkLanguage = linkLanguage
+    }
+    
+    init(fromRow row: Row) {
+        self.id = row[CountryLink.colId]
+        self.countryId = row[CountryLink.colCountryId]
+        self.label = row[CountryLink.colLabel]
+        self.link = row[CountryLink.colLink]
+        self.linkLanguage = row[CountryLink.colLinkLanguage]
+    }
+}
+
+struct I18nEntry: Codable {
+    static let colStringKey = Expression<String>("string_key")
+    static let colLanguageKey = Expression<String>("language_key")
+    static let colValue = Expression<String>("value")
+
+    let stringKey: String
+    let languageKey: String
+    let value: String
+    
+    init(stringKey: String, languageKey: String, value: String) {
+        self.stringKey = stringKey
+        self.languageKey = languageKey
+        self.value = value
+    }
+    
+    init(fromRow row: Row) {
+        self.stringKey = row[I18nEntry.colStringKey]
+        self.languageKey = row[I18nEntry.colLanguageKey]
+        self.value = row[I18nEntry.colValue]
+    }
+}
+
+struct PlateVariant: Codable {
+    static let colId = Expression<Int>("id")
+    static let colCountryId = Expression<String>("country_id")
+    static let colTitle = Expression<String>("title")
+    static let colPreview = Expression<String>("preview")
+    static let colPreviewFont = Expression<String?>("preview_font")
+    static let colPreviewTextColor = Expression<String?>("preview_text_color")
+    static let colPreviewBackgroundColor = Expression<String?>("preview_bg_color")
+    static let colPreviewBorderColor = Expression<String?>("preview_border_color")
+    static let colInUse = Expression<Bool>("in_use")
+    static let colDescription = Expression<String?>("description")
+    static let colOrder = Expression<Int?>("order")
+    
+    let id: Int
+    let countryId: String
+    let title: String
+    let preview: String
+    let previewFont: String?
+    let previewTextColor: String?
+    let previewBackgroundColor: String?
+    let previewBorderColor: String?
+    let inUse: Bool
+    let description: String?
+    let order: Int?
+    
+    init(id: Int, countryId: String, title: String, preview: String, previewFont: String?, previewTextColor: String?, previewBackgroundColor: String?, previewBorderColor: String?, inUse: Bool, description: String?, order: Int?) {
+        self.id = id
+        self.countryId = countryId
+        self.title = title
+        self.preview = preview
+        self.previewFont = previewFont
+        self.previewTextColor = previewTextColor
+        self.previewBackgroundColor = previewBackgroundColor
+        self.previewBorderColor = previewBorderColor
+        self.inUse = inUse
+        self.description = description
+        self.order = order
+    }
+    
+    init(fromRow row: Row) {
+        self.id = row[PlateVariant.colId]
+        self.countryId = row[PlateVariant.colCountryId]
+        self.title = row[PlateVariant.colTitle]
+        self.preview = row[PlateVariant.colPreview]
+        self.previewFont = row[PlateVariant.colPreviewFont]
+        self.previewTextColor = row[PlateVariant.colPreviewTextColor]
+        self.previewBackgroundColor = row[PlateVariant.colPreviewBackgroundColor]
+        self.previewBorderColor = row[PlateVariant.colPreviewBorderColor]
+        self.inUse = row[PlateVariant.colInUse]
+        self.description = row[PlateVariant.colDescription]
+        self.order = row[PlateVariant.colOrder]
     }
 }

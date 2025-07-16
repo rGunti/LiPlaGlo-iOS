@@ -24,7 +24,7 @@ struct CountryList: View {
                         }
                         Text(country.id)
                             .font(.headline)
-                        Text(country.name)
+                        TranslatedText(country.name)
                     }
                 }
             }

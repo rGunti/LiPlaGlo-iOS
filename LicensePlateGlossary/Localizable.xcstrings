@@ -1,18 +1,14 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "(not in use)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "(not in use)"
-          }
-        }
-      }
-    },
     "About this app" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Über diese App"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -23,6 +19,12 @@
     },
     "Countries" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Länder"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -31,14 +33,78 @@
         }
       }
     },
-    "Country.CH" : {
-
+    "Debug" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debug"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debug"
+          }
+        }
+      }
+    },
+    "Description" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beschreibung"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Description"
+          }
+        }
+      }
     },
     "Generic License Plate Layout" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kennzeichen-Layout"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generic License Plate Layout"
+          }
+        }
+      }
+    },
+    "Language" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprache"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
+          }
+        }
+      }
     },
     "Links" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Links"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -47,18 +113,14 @@
         }
       }
     },
-    "no data yet" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "no data yet"
-          }
-        }
-      }
-    },
     "Not in use" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nicht in Nutzung"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -67,18 +129,14 @@
         }
       }
     },
-    "Other countries" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Other countries"
-          }
-        }
-      }
-    },
     "Pattern" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muster"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -87,8 +145,46 @@
         }
       }
     },
+    "Plate Preview" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kennzeichen-Vorschau"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plate Preview"
+          }
+        }
+      }
+    },
+    "Plate Variants" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kennzeichen-Varianten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Plate Variants"
+          }
+        }
+      }
+    },
     "Remarks" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notizen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -97,19 +193,14 @@
         }
       }
     },
-    "Select an item" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Select an item"
-          }
-        }
-      }
-    },
     "Settings" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einstellungen"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -119,10 +210,39 @@
       }
     },
     "Show on Maps" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auf Maps zeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show on Maps"
+          }
+        }
+      }
+    },
+    "The information provided in this app is purely for informational purposes only and does not claim to be accurate, complete, or up-to-date. **THIS APP DOES NOT CONTAIN LEGAL ADVISE!**\n\nMost information is sourced from aggregation sites like Wikipedia and is provided under their respective license.\n\nPlease note that I am not affiliated with any of the organizations or brands mentioned in this app." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Informationen in dieser App werden zu Informations- und Unterhaltungszwecken bereitgestellt. Es wird kein Anspruch auf Korrektheit, Vollständigkeit oder Aktualität gestellt. **DIESE APP ENTHÄLT KEINE RECHTLICH BINDENDE INFORMATIONEN!**\n\nDie meisten Informationen wurden von Aggregationsseiten wie Wikipedia bezogen und werden unter den entsprechenden Lizenzen bereitgestellt.\n\nBitte beachte, dass ich mit keiner der in dieser App genannten Organisationen oder Marken verbunden bin."
+          }
+        }
+      }
     },
     "This license plate is no longer in use" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Kennzeichen sind nicht mehr in Nutzung"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
@@ -131,11 +251,54 @@
         }
       }
     },
-    "Version 0.0\n© 2025 Raphael Guntersweiler" : {
-      "shouldTranslate" : false
+    "Vanity Plates" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wunschkennzeichen"
+          }
+        }
+      }
+    },
+    "Vanity plates are available for this country." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wunschkennzeichen sind verfügbar in diesem Land."
+          }
+        }
+      }
+    },
+    "Vanity plates are not available for this country." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wunschkennzeichen sind nicht verfügbar in diesem Land."
+          }
+        }
+      }
+    },
+    "Version 0.0\n© 2025, Raphael Guntersweiler" : {
+
     },
     "Where is %@?" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wo ist %@?"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Where is %@?"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"
