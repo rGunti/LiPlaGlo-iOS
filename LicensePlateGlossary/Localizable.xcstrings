@@ -1,6 +1,12 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "© %@, Raphael Guntersweiler" : {
+
+    },
+    "© %lld, Raphael Guntersweiler" : {
+
+    },
     "About this app" : {
       "localizations" : {
         "de" : {
@@ -13,6 +19,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "About this app"
+          }
+        }
+      }
+    },
+    "Couldn't find any matching %@" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konnte keine passenden %@ finden"
           }
         }
       }
@@ -81,6 +97,17 @@
         }
       }
     },
+    "Identifier or name" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identifikator oder Name"
+          }
+        }
+      }
+    },
     "Language" : {
       "localizations" : {
         "de" : {
@@ -109,6 +136,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Links"
+          }
+        }
+      }
+    },
+    "not implemented" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nicht implementiert"
           }
         }
       }
@@ -177,6 +215,16 @@
         }
       }
     },
+    "Regional Identifiers" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Regionale Identifikatoren"
+          }
+        }
+      }
+    },
     "Remarks" : {
       "localizations" : {
         "de" : {
@@ -192,6 +240,19 @@
           }
         }
       }
+    },
+    "Search by identifier or name" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suche nach Identifikator oder Name"
+          }
+        }
+      }
+    },
+    "Search on Maps" : {
+
     },
     "Settings" : {
       "localizations" : {
@@ -280,9 +341,6 @@
           }
         }
       }
-    },
-    "Version 0.0\n© 2025, Raphael Guntersweiler" : {
-
     },
     "Where is %@?" : {
       "localizations" : {

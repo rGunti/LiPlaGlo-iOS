@@ -13,12 +13,15 @@ struct CountryDetail: View {
     let country: Country
     let links: [CountryLink]
     let plateVariants: [PlateVariant]
+    let identifierTypes: [RegionalIdentifierType]
     @StateObject private var vm = CountryDetailViewObject()
 
     init(country: Country) {
         self.country = country
         self.links = DbManager.instance.getLinksForCountry(country.id, forLanguage: getCurrentLanguage(withFallback: defaultFallbackLanguage))
         self.plateVariants = DbManager.instance.getPlateVariantsForCountry(country.id)
+        self.identifierTypes =
+            DbManager.instance.getRegionalIdentifierTypes(forCountry: country.id)
     }
     
     var body: some View {
@@ -37,13 +40,28 @@ struct CountryDetail: View {
                 }
             }
 
-            Section("Vanity Plates") {
-                if country.vanityPlatesPossible, let vanityPlatesDescription = country.vanityPlatesDescription {
-                    Text(getTranslatedStringWithFormatting(vanityPlatesDescription))
-                } else if country.vanityPlatesPossible {
-                    Text("Vanity plates are available for this country.")
-                } else {
-                    Text("Vanity plates are not available for this country.")
+            if let vanityPlatesPossible = country.vanityPlatesPossible {
+                Section("Vanity Plates") {
+                    if vanityPlatesPossible, let vanityPlatesDescription = country.vanityPlatesDescription {
+                        Text(getTranslatedStringWithFormatting(vanityPlatesDescription))
+                    } else if vanityPlatesPossible {
+                        Text("Vanity plates are available for this country.")
+                    } else {
+                        Text("Vanity plates are not available for this country.")
+                    }
+                }
+            }
+            
+            Section("Regional Identifiers") {
+                ForEach(identifierTypes, id: \.id) { identifierType in
+                    NavigationLink {
+                        RegionalIdentifierList(
+                            type: identifierType,
+                            country: country
+                        )
+                    } label: {
+                        Text(getTranslatedString(identifierType.name))
+                    }
                 }
             }
             

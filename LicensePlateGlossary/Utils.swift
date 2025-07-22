@@ -10,6 +10,28 @@ func isIPad() -> Bool {
     return UIDevice.current.userInterfaceIdiom == .pad
 }
 
+func openSearchQueryOnMaps(query: String) {
+    let escapedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+    let searchUrl = URL(string: "maps:///search?query=\(escapedQuery)")
+    if let url = searchUrl, UIApplication.shared.canOpenURL(url) {
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+}
+
+func getAppVersion() -> String {
+    if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+        return appVersion
+    }
+    return "Unknown"
+}
+
+func getBuildNumber() -> String {
+    if let buildNumber = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+        return buildNumber
+    }
+    return "Unknown"
+}
+
 // Sourced from: https://stackoverflow.com/a/56874327
 extension Color {
     init(hex: String) {

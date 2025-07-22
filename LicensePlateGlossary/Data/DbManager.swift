@@ -89,6 +89,48 @@ class DbManager {
         }
         return variants
     }
+    
+    func getRegionalIdentifierTypes(forCountry countryId: String) -> [RegionalIdentifierType] {
+        var types: [RegionalIdentifierType] = []
+        do {
+            for typeRow in try dbConnection.prepare(DbTables.regionalIdentifierType
+                .filter(RegionalIdentifierType.colCountryId == countryId)
+                .order([RegionalIdentifier.colId])) {
+                types.append(RegionalIdentifierType(fromRow: typeRow))
+            }
+        } catch {
+            print("Error when getting regional identifier types")
+        }
+        return types
+    }
+    
+    func getRegionalIdentifiers(forCountry countryId: String) -> [RegionalIdentifier] {
+        var identifiers: [RegionalIdentifier] = []
+        do {
+            for ident in try dbConnection.prepare(DbTables.regionalIdentifier
+                .filter(RegionalIdentifier.colCountryId == countryId)
+                .order([RegionalIdentifier.colIdentifier])) {
+                identifiers.append(RegionalIdentifier(fromRow: ident))
+            }
+        } catch {
+            print("Error when getting regional identifiers for country %s", countryId)
+        }
+        return identifiers
+    }
+    
+    func getRegionalIdentifiers(forCountry countryId: String, ofType typeId: Int) -> [RegionalIdentifier] {
+        var identifiers: [RegionalIdentifier] = []
+        do {
+            for ident in try dbConnection.prepare(DbTables.regionalIdentifier
+                .filter(RegionalIdentifier.colCountryId == countryId && RegionalIdentifier.colTypeId == typeId)
+                .order([RegionalIdentifier.colIdentifier])) {
+                identifiers.append(RegionalIdentifier(fromRow: ident))
+            }
+        } catch {
+            print("Error when getting regional identifiers for country %s and type %d", countryId, typeId)
+        }
+        return identifiers
+    }
 }
 
 struct DbTables {
@@ -98,6 +140,8 @@ struct DbTables {
     static let countryLinks = Table("country_links")
     static let i18n = Table("i18n")
     static let plateVariants = Table("plate_variants")
+    static let regionalIdentifier = Table("regional_identifier")
+    static let regionalIdentifierType = Table("regional_identifier_type")
 }
 
 struct Country: Codable {
@@ -107,7 +151,7 @@ struct Country: Codable {
     static let colDefaultFont = Expression<String?>("license_plate_font")
     static let colGenericPreview = Expression<String?>("generic_preview")
     static let colDescription = Expression<String?>("description")
-    static let colVanityPlatesPossible = Expression<Bool>("vanity_plates_possible")
+    static let colVanityPlatesPossible = Expression<Bool?>("vanity_plates_possible")
     static let colVanityPlatesDescription = Expression<String?>("vanity_plates_description")
 
     let id: String
@@ -116,10 +160,10 @@ struct Country: Codable {
     let defaultFont: String?
     let genericPreview: String?
     let description: String?
-    let vanityPlatesPossible: Bool
+    let vanityPlatesPossible: Bool?
     let vanityPlatesDescription: String?
     
-    init(id: String, name: String, flagEmoji: String?, defaultFont: String?, genericPreview: String?, description: String?, vanityPlatesPossible: Bool, vanityPlatesDescription: String?) {
+    init(id: String, name: String, flagEmoji: String?, defaultFont: String?, genericPreview: String?, description: String?, vanityPlatesPossible: Bool?, vanityPlatesDescription: String?) {
         self.id = id
         self.name = name
         self.flagEmoji = flagEmoji
@@ -245,5 +289,61 @@ struct PlateVariant: Codable {
         self.inUse = row[PlateVariant.colInUse]
         self.description = row[PlateVariant.colDescription]
         self.order = row[PlateVariant.colOrder]
+    }
+}
+
+struct RegionalIdentifierType: Codable {
+    static let colId = Expression<Int>("id")
+    static let colCountryId = Expression<String>("country_id")
+    static let colName = Expression<String>("name")
+    
+    let id: Int
+    let countryId: String
+    let name: String
+    
+    init(id: Int, countryId: String, name: String) {
+        self.id = id
+        self.countryId = countryId
+        self.name = name
+    }
+    
+    init(fromRow row: Row) {
+        self.id = row[RegionalIdentifierType.colId]
+        self.countryId = row[RegionalIdentifierType.colCountryId]
+        self.name = row[RegionalIdentifierType.colName]
+    }
+}
+
+struct RegionalIdentifier: Codable {
+    static let colId = Expression<Int>("id")
+    static let colCountryId = Expression<String>("country_id")
+    static let colTypeId = Expression<Int>("type_id")
+    static let colIdentifier = Expression<String>("identifier")
+    static let colName = Expression<String>("name")
+    static let colDescription = Expression<String?>("description")
+    
+    let id: Int
+    let countryId: String
+    let typeId: Int
+    let identifier: String
+    let name: String
+    let description: String?
+    
+    init(id: Int, countryId: String, typeId: Int, identifier: String, name: String, description: String?) {
+        self.id = id
+        self.countryId = countryId
+        self.typeId = typeId
+        self.identifier = identifier
+        self.name = name
+        self.description = description
+    }
+    
+    init(fromRow row: Row) {
+        self.id = row[RegionalIdentifier.colId]
+        self.countryId = row[RegionalIdentifier.colCountryId]
+        self.typeId = row[RegionalIdentifier.colTypeId]
+        self.identifier = row[RegionalIdentifier.colIdentifier]
+        self.name = row[RegionalIdentifier.colName]
+        self.description = row[RegionalIdentifier.colDescription]
     }
 }
