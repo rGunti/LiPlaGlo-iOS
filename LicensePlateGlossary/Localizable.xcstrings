@@ -1,6 +1,29 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "" : {
+
+    },
+    "%@ – %@ (%@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ – %2$@ (%3$@)"
+          }
+        }
+      }
+    },
+    "%@ (%lld)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ (%2$lld)"
+          }
+        }
+      }
+    },
     "© %@, Raphael Guntersweiler" : {
 
     },
@@ -22,6 +45,21 @@
           }
         }
       }
+    },
+    "Copied Insert Statement to clipboard" : {
+
+    },
+    "Copied key to clipboard" : {
+
+    },
+    "Copied message to clipboard" : {
+
+    },
+    "Copy Insert Statement" : {
+
+    },
+    "Copy text" : {
+
     },
     "Couldn't find any matching %@" : {
       "localizations" : {
@@ -139,6 +177,12 @@
           }
         }
       }
+    },
+    "missing translation" : {
+
+    },
+    "Missing translations" : {
+
     },
     "not implemented" : {
       "extractionState" : "stale",
@@ -311,6 +355,9 @@
           }
         }
       }
+    },
+    "Translations" : {
+
     },
     "Vanity Plates" : {
       "localizations" : {

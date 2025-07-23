@@ -14,9 +14,87 @@ struct DbTables {
     static let countries = Table("countries")
     static let countryLinks = Table("country_links")
     static let i18n = Table("i18n")
+    static let languages = Table("languages")
     static let plateVariants = Table("plate_variants")
     static let regionalIdentifier = Table("regional_identifier")
     static let regionalIdentifierType = Table("regional_identifier_type")
+}
+
+struct DbViews {
+    private init() { }
+    
+    static let untranslatedStrings = View("v_untranslated_strings")
+}
+
+struct I18nEntry: Codable {
+    static let colStringKey = Expression<String>("string_key")
+    static let colLanguageKey = Expression<String>("language_key")
+    static let colValue = Expression<String>("value")
+
+    let stringKey: String
+    let languageKey: String
+    let value: String
+    
+    init(stringKey: String, languageKey: String, value: String) {
+        self.stringKey = stringKey
+        self.languageKey = languageKey
+        self.value = value
+    }
+    
+    init(fromRow row: Row) {
+        self.stringKey = row[I18nEntry.colStringKey]
+        self.languageKey = row[I18nEntry.colLanguageKey]
+        self.value = row[I18nEntry.colValue]
+    }
+    
+    static func generateInsertStatement(forStringKey stringKey: String, andLanguageKey languageKey: String, withValue value: String) -> String {
+        return DbTables.i18n.insert(
+            colStringKey <- stringKey,
+            colLanguageKey <- languageKey,
+            colValue <- value
+        ).description
+    }
+}
+
+struct I18nLanguage: Codable {
+    static let colId = Expression<String>("id")
+    static let colNativeLanguageName = Expression<String>("native_language_name")
+    static let colEnglishLanguageName = Expression<String>("english_language_name")
+    
+    let id: String
+    let nativeLanguageName: String
+    let englishLanguageName: String
+    
+    init(id: String, nativeLanguageName: String, englishLanguageName: String) {
+        self.id = id
+        self.nativeLanguageName = nativeLanguageName
+        self.englishLanguageName = englishLanguageName
+    }
+    
+    init(fromRow row: Row) {
+        self.id = row[I18nLanguage.colId]
+        self.nativeLanguageName = row[I18nLanguage.colNativeLanguageName]
+        self.englishLanguageName = row[I18nLanguage.colEnglishLanguageName]
+    }
+}
+
+struct UntranslatedString: Codable {
+    static let colStringKey = Expression<String>("string_key")
+    static let colMissingLanguages = Expression<String>("missing_languages")
+    
+    let stringKey: String
+    let missingLanguages: [String]
+    
+    init(stringKey: String, missingLanguages: [String]) {
+        self.stringKey = stringKey
+        self.missingLanguages = missingLanguages
+    }
+    
+    init(fromRow row: Row) {
+        self.stringKey = row[UntranslatedString.colStringKey]
+        let missingLanguages = row[UntranslatedString.colMissingLanguages]
+        self.missingLanguages = missingLanguages.components(separatedBy: ",")
+    }
 }
 
 struct Country: Codable {
@@ -88,28 +166,6 @@ struct CountryLink: Codable {
         self.label = row[CountryLink.colLabel]
         self.link = row[CountryLink.colLink]
         self.linkLanguage = row[CountryLink.colLinkLanguage]
-    }
-}
-
-struct I18nEntry: Codable {
-    static let colStringKey = Expression<String>("string_key")
-    static let colLanguageKey = Expression<String>("language_key")
-    static let colValue = Expression<String>("value")
-
-    let stringKey: String
-    let languageKey: String
-    let value: String
-    
-    init(stringKey: String, languageKey: String, value: String) {
-        self.stringKey = stringKey
-        self.languageKey = languageKey
-        self.value = value
-    }
-    
-    init(fromRow row: Row) {
-        self.stringKey = row[I18nEntry.colStringKey]
-        self.languageKey = row[I18nEntry.colLanguageKey]
-        self.value = row[I18nEntry.colValue]
     }
 }
 

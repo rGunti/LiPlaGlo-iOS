@@ -27,6 +27,67 @@ class DbManager {
         return db
     }
     
+    func getLanguages() -> [I18nLanguage] {
+        var languages: [I18nLanguage] = []
+        do {
+            for languageRow in try dbConnection.prepare(DbTables.languages.order(I18nLanguage.colId)) {
+                languages.append(I18nLanguage(fromRow: languageRow))
+            }
+        } catch {
+            print("Error when getting languages", error)
+        }
+        return languages
+    }
+    
+    func getMissingTranslations() -> [UntranslatedString] {
+        var translations: [UntranslatedString] = []
+        do {
+            for translationRow in try dbConnection.prepare(DbViews.untranslatedStrings.order(UntranslatedString.colStringKey)) {
+                translations.append(UntranslatedString(fromRow: translationRow))
+            }
+        } catch {
+            print("Error when getting missing translations", error)
+        }
+        return translations
+    }
+    
+    func getTranslatedStringEntry(fromKey key: String, forLanguage language: String) -> I18nEntry? {
+        do {
+            for row in try dbConnection.prepare(DbTables.i18n
+                .filter(I18nEntry.colStringKey == key && I18nEntry.colLanguageKey == language)
+                .limit(1)) {
+                return I18nEntry(fromRow: row)
+            }
+        } catch {
+            print("Error when getting i18n string", error)
+        }
+        return nil
+    }
+    
+    func getTranslatedString(fromKey key: String) -> String {
+        if let entry = getTranslatedStringEntry(fromKey: key, forLanguage: getCurrentLanguage(withFallback: defaultFallbackLanguage)) {
+            return entry.value
+        } else if let fallbackEntry = getTranslatedStringEntry(fromKey: key, forLanguage: defaultFallbackLanguage) {
+            return fallbackEntry.value
+        } else {
+            return key
+        }
+    }
+    
+    func getAllTranslatedStrings(fromKey key: String) -> [I18nEntry] {
+        var entries: [I18nEntry] = []
+        do {
+            for row in try dbConnection.prepare(DbTables.i18n
+                .filter(I18nEntry.colStringKey == key)
+                .order(I18nEntry.colLanguageKey)) {
+                entries.append(I18nEntry(fromRow: row))
+            }
+        } catch {
+            print("Error when getting all translated strings for key \"\(key)\"", error)
+        }
+        return entries
+    }
+    
     func getCountries() -> [Country] {
         var countries: [Country] = []
         do {
@@ -51,29 +112,6 @@ class DbManager {
             print("Error when getting country links", error)
         }
         return links
-    }
-    
-    func getTranslatedStringEntry(fromKey key: String, forLanguage language: String) -> I18nEntry? {
-        do {
-            for row in try dbConnection.prepare(DbTables.i18n
-                .filter(I18nEntry.colStringKey == key && I18nEntry.colLanguageKey == language)
-                .limit(1)) {
-                return I18nEntry(fromRow: row)
-            }
-        } catch {
-            print("Error when getting i18n string", error)
-        }
-        return nil
-    }
-    
-    func getTranslatedString(fromKey key: String) -> String {
-        if let entry = getTranslatedStringEntry(fromKey: key, forLanguage: getCurrentLanguage(withFallback: defaultFallbackLanguage)) {
-            return entry.value
-        } else if let fallbackEntry = getTranslatedStringEntry(fromKey: key, forLanguage: defaultFallbackLanguage) {
-            return fallbackEntry.value
-        } else {
-            return key
-        }
     }
     
     func getPlateVariantsForCountry(_ countryId: String) -> [PlateVariant] {

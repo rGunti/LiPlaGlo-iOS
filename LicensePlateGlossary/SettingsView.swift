@@ -27,6 +27,11 @@ struct SettingsView: View {
                     KeyValueRow(
                         key: "Language",
                         value: Locale.current.language.languageCode?.identifier ?? "n/a")
+                    NavigationLink {
+                        I18nDebugList()
+                    } label: {
+                        Text("Translations")
+                    }
                 }
             }.navigationTitle("Settings")
         }
