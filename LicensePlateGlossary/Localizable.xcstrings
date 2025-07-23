@@ -12,7 +12,8 @@
             "value" : "%1$@ – %2$@ (%3$@)"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "%@ (%lld)" : {
       "localizations" : {
@@ -22,13 +23,14 @@
             "value" : "%1$@ (%2$lld)"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "© %@, Raphael Guntersweiler" : {
-
+      "shouldTranslate" : false
     },
     "© %lld, Raphael Guntersweiler" : {
-
+      "shouldTranslate" : false
     },
     "About this app" : {
       "localizations" : {
@@ -47,19 +49,54 @@
       }
     },
     "Copied Insert Statement to clipboard" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insert Statement kopiert"
+          }
+        }
+      }
     },
     "Copied key to clipboard" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Key kopiert"
+          }
+        }
+      }
     },
     "Copied message to clipboard" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nachricht kopiert"
+          }
+        }
+      }
     },
     "Copy Insert Statement" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Insert Statement kopieren"
+          }
+        }
+      }
     },
     "Copy text" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Text kopieren"
+          }
+        }
+      }
     },
     "Couldn't find any matching %@" : {
       "localizations" : {
@@ -135,17 +172,6 @@
         }
       }
     },
-    "Identifier or name" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Identifikator oder Name"
-          }
-        }
-      }
-    },
     "Language" : {
       "localizations" : {
         "de" : {
@@ -179,18 +205,21 @@
       }
     },
     "missing translation" : {
-
-    },
-    "Missing translations" : {
-
-    },
-    "not implemented" : {
-      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "nicht implementiert"
+            "value" : "Übersetzung fehlt"
+          }
+        }
+      }
+    },
+    "Missing translations" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Übersetzung fehlt"
           }
         }
       }
@@ -296,7 +325,14 @@
       }
     },
     "Search on Maps" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auf Maps suchen"
+          }
+        }
+      }
     },
     "Settings" : {
       "localizations" : {
@@ -357,7 +393,14 @@
       }
     },
     "Translations" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Übersetzung"
+          }
+        }
+      }
     },
     "Vanity Plates" : {
       "localizations" : {
