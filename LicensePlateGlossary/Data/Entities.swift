@@ -106,6 +106,7 @@ struct Country: Codable {
     static let colDescription = Expression<String?>("description")
     static let colVanityPlatesPossible = Expression<Bool?>("vanity_plates_possible")
     static let colVanityPlatesDescription = Expression<String?>("vanity_plates_description")
+    static let colHidden = Expression<Bool>("hidden")
 
     let id: String
     let name: String
@@ -115,8 +116,9 @@ struct Country: Codable {
     let description: String?
     let vanityPlatesPossible: Bool?
     let vanityPlatesDescription: String?
+    let hidden: Bool
     
-    init(id: String, name: String, flagEmoji: String?, defaultFont: String?, genericPreview: String?, description: String?, vanityPlatesPossible: Bool?, vanityPlatesDescription: String?) {
+    init(id: String, name: String, flagEmoji: String?, defaultFont: String?, genericPreview: String?, description: String?, vanityPlatesPossible: Bool?, vanityPlatesDescription: String?, hidden: Bool) {
         self.id = id
         self.name = name
         self.flagEmoji = flagEmoji
@@ -125,6 +127,7 @@ struct Country: Codable {
         self.description = description
         self.vanityPlatesPossible = vanityPlatesPossible
         self.vanityPlatesDescription = vanityPlatesDescription
+        self.hidden = hidden
     }
     
     init(fromRow row: Row) {
@@ -136,6 +139,7 @@ struct Country: Codable {
         self.description = row[Country.colDescription]
         self.vanityPlatesPossible = row[Country.colVanityPlatesPossible]
         self.vanityPlatesDescription = row[Country.colVanityPlatesDescription]
+        self.hidden = row[Country.colHidden]
     }
 }
 

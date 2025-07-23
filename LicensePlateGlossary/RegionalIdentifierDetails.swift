@@ -48,7 +48,8 @@ struct RegionalIdentifierDetails: View {
             genericPreview: "XX·123 456",
             description: "raw:**Hello** _World_",
             vanityPlatesPossible: true,
-            vanityPlatesDescription: "raw: **Some** _Text_"
+            vanityPlatesDescription: "raw: **Some** _Text_",
+            hidden: false
         ),
         regionalIdentifierType: RegionalIdentifierType(
             id: 9999999,

@@ -93,5 +93,5 @@ struct LicensePlatePreview: View {
 //        plateTextSize: nil
 //    )
     
-    LicensePlatePreview(fromCountry: Country(id: "XX", name: "example_country", flagEmoji: "xx", defaultFont: nil, genericPreview: "XX·123 456", description: "raw:**Hello** _World_", vanityPlatesPossible: true, vanityPlatesDescription: "raw: **Some** _Text_"))
+    LicensePlatePreview(fromCountry: Country(id: "XX", name: "example_country", flagEmoji: "xx", defaultFont: nil, genericPreview: "XX·123 456", description: "raw:**Hello** _World_", vanityPlatesPossible: true, vanityPlatesDescription: "raw: **Some** _Text_", hidden: false))
 }

@@ -88,10 +88,13 @@ class DbManager {
         return entries
     }
     
-    func getCountries() -> [Country] {
+    func getCountries(includeHidden: Bool = false) -> [Country] {
         var countries: [Country] = []
         do {
-            for countryRow in try dbConnection.prepare(DbTables.countries.order(Country.colId)) {
+            let query = includeHidden ?
+                DbTables.countries.order(Country.colId) :
+                DbTables.countries.filter(Country.colHidden == false).order(Country.colId)
+            for countryRow in try dbConnection.prepare(query) {
                 countries.append(Country(fromRow: countryRow))
             }
         } catch {

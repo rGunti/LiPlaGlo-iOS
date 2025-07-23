@@ -36,7 +36,8 @@ struct PlateVariantDetails: View {
         genericPreview: "XX·123 456",
         description: "raw:**Hello** _World_",
         vanityPlatesPossible: true,
-        vanityPlatesDescription: "raw: **Some** _Text_"
+        vanityPlatesDescription: "raw: **Some** _Text_",
+        hidden: false
     )
     let variant = PlateVariant(
         id: -1,
