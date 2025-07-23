@@ -224,34 +224,12 @@
         }
       }
     },
-    "Not in use" : {
+    "Out of use" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nicht in Nutzung"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Not in use"
-          }
-        }
-      }
-    },
-    "Pattern" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Muster"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pattern"
           }
         }
       }
@@ -294,22 +272,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Regionale Identifikatoren"
-          }
-        }
-      }
-    },
-    "Remarks" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notizen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Remarks"
           }
         }
       }
@@ -376,18 +338,12 @@
         }
       }
     },
-    "This license plate is no longer in use" : {
+    "This license plate variant is not currently in use." : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Diese Kennzeichen sind nicht mehr in Nutzung"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This license plate is no longer in use"
+            "value" : "Diese Variante ist derzeit nicht in Nutzung."
           }
         }
       }

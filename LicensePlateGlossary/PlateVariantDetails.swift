@@ -17,6 +17,12 @@ struct PlateVariantDetails: View {
                 LicensePlatePreview(fromPlateVariant: plateVariant, andCountry: country)
             }
             
+            if !plateVariant.inUse {
+                Section("Out of use") {
+                    Label("This license plate variant is not currently in use.", systemImage: "rectangle.slash")
+                }
+            }
+            
             if let description = plateVariant.description {
                 Section("Description") {
                     Text(getTranslatedStringWithFormatting(description))
@@ -48,7 +54,7 @@ struct PlateVariantDetails: View {
         previewTextColor: "000000",
         previewBackgroundColor: "ffffff",
         previewBorderColor: "000000",
-        inUse: true,
+        inUse: false,
         description: "raw:**Hello** _World_\n## Test\n\nSource from [Wikipedia](https://wikipedia.org)",
         order: nil
     )
