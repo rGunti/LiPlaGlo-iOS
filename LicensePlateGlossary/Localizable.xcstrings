@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "" : {
-      "shouldTranslate" : false
-    },
     "%@ – %@ (%@)" : {
       "localizations" : {
         "en" : {
@@ -27,9 +24,6 @@
       "shouldTranslate" : false
     },
     "© %@, Raphael Guntersweiler" : {
-      "shouldTranslate" : false
-    },
-    "© %lld, Raphael Guntersweiler" : {
       "shouldTranslate" : false
     },
     "About this app" : {
@@ -135,6 +129,7 @@
       }
     },
     "Debug" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -193,6 +188,7 @@
       }
     },
     "Language" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -253,9 +249,6 @@
           }
         }
       }
-    },
-    "openpotato/kfz-kennzeichen" : {
-      "shouldTranslate" : false
     },
     "Out of use" : {
       "localizations" : {
@@ -354,9 +347,6 @@
           }
         }
       }
-    },
-    "SQLite.swift" : {
-      "shouldTranslate" : false
     },
     "The data provided in this app is sourced from the following sources (if not stated otherwise)." : {
       "localizations" : {
@@ -457,9 +447,6 @@
           }
         }
       }
-    },
-    "Wikipedia" : {
-      "shouldTranslate" : false
     }
   },
   "version" : "1.0"
