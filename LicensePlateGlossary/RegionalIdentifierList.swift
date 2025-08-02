@@ -8,18 +8,18 @@
 import SwiftUI
 
 struct RegionalIdentifierList: View {
-    let type: RegionalIdentifierType
-    let identifiers: [RegionalIdentifier]
+    let type: PlateIdentifierType
+    let identifiers: [PlateIdentifier]
     let country: Country
     let plateFont: String
     
-    @State var searchResults: [RegionalIdentifier] = []
+    @State var searchResults: [PlateIdentifier] = []
     @State var searchQuery: String = ""
     
-    init(type: RegionalIdentifierType, country: Country) {
+    init(type: PlateIdentifierType, country: Country) {
         self.type = type
         self.country = country
-        self.identifiers = DbManager.instance.getRegionalIdentifiers(forCountry: type.countryId, ofType: type.id)
+        self.identifiers = DbManager.instance.getIdentifiers(forCountry: type.countryId, ofType: type.id)
         self.plateFont = country.defaultFont ?? "HelveticaNeue-CondensedBold"
     }
 
@@ -85,7 +85,7 @@ struct RegionalIdentifierList: View {
 
 #Preview {
     RegionalIdentifierList(
-        type: RegionalIdentifierType(
+        type: PlateIdentifierType(
             id: 9999999,
             countryId: "XX",
             name: "cantons"

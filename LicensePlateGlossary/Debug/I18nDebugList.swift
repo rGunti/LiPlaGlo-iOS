@@ -23,10 +23,17 @@ struct I18nDebugList: View {
     var body: some View {
         List {
             Section("Missing translations") {
-                ForEach(missingTranslations, id: \.stringKey) { translation in
-                    MissingTranslationItem(
-                        string: translation,
-                        availableLanguages: languages
+                if missingTranslations.count > 0 {
+                    ForEach(missingTranslations, id: \.stringKey) { translation in
+                        MissingTranslationItem(
+                            string: translation,
+                            availableLanguages: languages
+                        )
+                    }
+                } else {
+                    Label(
+                        "Good news! No missing translations found.",
+                        systemImage: "hand.thumbsup"
                     )
                 }
             }

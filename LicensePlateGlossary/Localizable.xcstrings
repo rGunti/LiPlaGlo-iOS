@@ -2,7 +2,7 @@
   "sourceLanguage" : "en",
   "strings" : {
     "" : {
-
+      "shouldTranslate" : false
     },
     "%@ – %@ (%@)" : {
       "localizations" : {
@@ -124,6 +124,9 @@
         }
       }
     },
+    "Data" : {
+
+    },
     "Debug" : {
       "localizations" : {
         "de" : {
@@ -172,6 +175,16 @@
         }
       }
     },
+    "Good news! No missing translations found." : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Super! Keine Übersetzungen fehlen."
+          }
+        }
+      }
+    },
     "Language" : {
       "localizations" : {
         "de" : {
@@ -187,6 +200,9 @@
           }
         }
       }
+    },
+    "Licenses & Attribution" : {
+
     },
     "Links" : {
       "localizations" : {
@@ -224,12 +240,25 @@
         }
       }
     },
+    "openpotato/kfz-kennzeichen" : {
+
+    },
     "Out of use" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Nicht in Nutzung"
+          }
+        }
+      }
+    },
+    "Plate Identifiers" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kennzeichen-Identifikatoren"
           }
         }
       }
@@ -262,16 +291,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Plate Variants"
-          }
-        }
-      }
-    },
-    "Regional Identifiers" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Regionale Identifikatoren"
           }
         }
       }
@@ -313,6 +332,7 @@
       }
     },
     "Show on Maps" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -328,6 +348,15 @@
         }
       }
     },
+    "Software" : {
+
+    },
+    "SQLite.swift" : {
+
+    },
+    "The data provided in this app is sourced from the following sources (if not stated otherwise)." : {
+
+    },
     "The information provided in this app is purely for informational purposes only and does not claim to be accurate, complete, or up-to-date. **THIS APP DOES NOT CONTAIN LEGAL ADVISE!**\n\nMost information is sourced from aggregation sites like Wikipedia and is provided under their respective license.\n\nPlease note that I am not affiliated with any of the organizations or brands mentioned in this app." : {
       "localizations" : {
         "de" : {
@@ -338,6 +367,9 @@
         }
       }
     },
+    "This app was built with software components built by other developers and provided to others free of charge." : {
+
+    },
     "This license plate variant is not currently in use." : {
       "localizations" : {
         "de" : {
@@ -347,6 +379,9 @@
           }
         }
       }
+    },
+    "This software would not have been possible without the work of others.\nFind below a list of projects that are used within this app.\n\nThanks to all these projects!" : {
+
     },
     "Translations" : {
       "localizations" : {
@@ -388,7 +423,11 @@
         }
       }
     },
+    "Visit project page" : {
+
+    },
     "Where is %@?" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -403,6 +442,9 @@
           }
         }
       }
+    },
+    "Wikipedia" : {
+
     }
   },
   "version" : "1.0"

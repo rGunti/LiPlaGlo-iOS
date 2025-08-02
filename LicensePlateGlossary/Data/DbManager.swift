@@ -9,7 +9,7 @@ import Foundation
 import SQLite
 
 class DbManager {
-    private static let dbFilePath = Bundle.main.path(forResource: "lpg", ofType: "sqlite")!;
+    private static let dbFilePath = Bundle.main.path(forResource: "liplaglo", ofType: "db")!;
     static let instance = DbManager()
     
     let dbConnection: Connection
@@ -131,13 +131,13 @@ class DbManager {
         return variants
     }
     
-    func getRegionalIdentifierTypes(forCountry countryId: String) -> [RegionalIdentifierType] {
-        var types: [RegionalIdentifierType] = []
+    func getIdentifierTypes(forCountry countryId: String) -> [PlateIdentifierType] {
+        var types: [PlateIdentifierType] = []
         do {
-            for typeRow in try dbConnection.prepare(DbTables.regionalIdentifierType
-                .filter(RegionalIdentifierType.colCountryId == countryId)
-                .order([RegionalIdentifier.colId])) {
-                types.append(RegionalIdentifierType(fromRow: typeRow))
+            for typeRow in try dbConnection.prepare(DbTables.plateIdentifierTypes
+                .filter(PlateIdentifierType.colCountryId == countryId)
+                .order([PlateIdentifier.colId])) {
+                types.append(PlateIdentifierType(fromRow: typeRow))
             }
         } catch {
             print("Error when getting regional identifier types")
@@ -145,13 +145,13 @@ class DbManager {
         return types
     }
     
-    func getRegionalIdentifiers(forCountry countryId: String) -> [RegionalIdentifier] {
-        var identifiers: [RegionalIdentifier] = []
+    func getIdentifiers(forCountry countryId: String) -> [PlateIdentifier] {
+        var identifiers: [PlateIdentifier] = []
         do {
-            for ident in try dbConnection.prepare(DbTables.regionalIdentifier
-                .filter(RegionalIdentifier.colCountryId == countryId)
-                .order([RegionalIdentifier.colIdentifier])) {
-                identifiers.append(RegionalIdentifier(fromRow: ident))
+            for ident in try dbConnection.prepare(DbTables.plateIdentifiers
+                .filter(PlateIdentifier.colCountryId == countryId)
+                .order([PlateIdentifier.colIdentifier])) {
+                identifiers.append(PlateIdentifier(fromRow: ident))
             }
         } catch {
             print("Error when getting regional identifiers for country %s", countryId)
@@ -159,17 +159,28 @@ class DbManager {
         return identifiers
     }
     
-    func getRegionalIdentifiers(forCountry countryId: String, ofType typeId: Int) -> [RegionalIdentifier] {
-        var identifiers: [RegionalIdentifier] = []
+    func getIdentifiers(forCountry countryId: String, ofType typeId: Int) -> [PlateIdentifier] {
+        var identifiers: [PlateIdentifier] = []
         do {
-            for ident in try dbConnection.prepare(DbTables.regionalIdentifier
-                .filter(RegionalIdentifier.colCountryId == countryId && RegionalIdentifier.colTypeId == typeId)
-                .order([RegionalIdentifier.colIdentifier])) {
-                identifiers.append(RegionalIdentifier(fromRow: ident))
+            for ident in try dbConnection.prepare(DbTables.plateIdentifiers
+                .filter(PlateIdentifier.colCountryId == countryId && PlateIdentifier.colTypeId == typeId)
+                .order([PlateIdentifier.colIdentifier])) {
+                identifiers.append(PlateIdentifier(fromRow: ident))
             }
         } catch {
             print("Error when getting regional identifiers for country %s and type %d", countryId, typeId)
         }
         return identifiers
+    }
+    
+    func getDatabaseVersion() -> DbVersion {
+        do {
+            for ver in try dbConnection.prepare(DbTables.version.limit(1)) {
+                return DbVersion(fromRow: ver)
+            }
+        } catch {
+            print("Error when getting database version", error)
+        }
+        return DbVersion(id: "ERR", version: "ERR")
     }
 }

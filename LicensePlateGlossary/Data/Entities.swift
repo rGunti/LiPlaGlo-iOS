@@ -16,8 +16,10 @@ struct DbTables {
     static let i18n = Table("i18n")
     static let languages = Table("languages")
     static let plateVariants = Table("plate_variants")
-    static let regionalIdentifier = Table("regional_identifier")
-    static let regionalIdentifierType = Table("regional_identifier_type")
+    static let plateIdentifiers = Table("plate_identifier")
+    static let plateIdentifierTypes = Table("plate_identifier_type")
+    
+    static let version = Table("version")
 }
 
 struct DbViews {
@@ -227,7 +229,7 @@ struct PlateVariant: Codable {
     }
 }
 
-struct RegionalIdentifierType: Codable {
+struct PlateIdentifierType: Codable {
     static let colId = Expression<Int>("id")
     static let colCountryId = Expression<String>("country_id")
     static let colName = Expression<String>("name")
@@ -243,19 +245,20 @@ struct RegionalIdentifierType: Codable {
     }
     
     init(fromRow row: Row) {
-        self.id = row[RegionalIdentifierType.colId]
-        self.countryId = row[RegionalIdentifierType.colCountryId]
-        self.name = row[RegionalIdentifierType.colName]
+        self.id = row[PlateIdentifierType.colId]
+        self.countryId = row[PlateIdentifierType.colCountryId]
+        self.name = row[PlateIdentifierType.colName]
     }
 }
 
-struct RegionalIdentifier: Codable {
+struct PlateIdentifier: Codable {
     static let colId = Expression<Int>("id")
     static let colCountryId = Expression<String>("country_id")
     static let colTypeId = Expression<Int>("type_id")
     static let colIdentifier = Expression<String>("identifier")
     static let colName = Expression<String>("name")
     static let colDescription = Expression<String?>("description")
+    static let colIsGeographic = Expression<Bool>("is_geographic")
     
     let id: Int
     let countryId: String
@@ -263,23 +266,44 @@ struct RegionalIdentifier: Codable {
     let identifier: String
     let name: String
     let description: String?
+    let isGeographic: Bool
     
-    init(id: Int, countryId: String, typeId: Int, identifier: String, name: String, description: String?) {
+    init(id: Int, countryId: String, typeId: Int, identifier: String, name: String, description: String?, isGeographic: Bool) {
         self.id = id
         self.countryId = countryId
         self.typeId = typeId
         self.identifier = identifier
         self.name = name
         self.description = description
+        self.isGeographic = isGeographic
     }
     
     init(fromRow row: Row) {
-        self.id = row[RegionalIdentifier.colId]
-        self.countryId = row[RegionalIdentifier.colCountryId]
-        self.typeId = row[RegionalIdentifier.colTypeId]
-        self.identifier = row[RegionalIdentifier.colIdentifier]
-        self.name = row[RegionalIdentifier.colName]
-        self.description = row[RegionalIdentifier.colDescription]
+        self.id = row[PlateIdentifier.colId]
+        self.countryId = row[PlateIdentifier.colCountryId]
+        self.typeId = row[PlateIdentifier.colTypeId]
+        self.identifier = row[PlateIdentifier.colIdentifier]
+        self.name = row[PlateIdentifier.colName]
+        self.description = row[PlateIdentifier.colDescription]
+        self.isGeographic = row[PlateIdentifier.colIsGeographic]
+    }
+}
+
+struct DbVersion: Codable {
+    static let colId = Expression<String>("id")
+    static let colVersion = Expression<String>("version")
+    
+    let id: String
+    let version: String
+    
+    init(id: String, version: String) {
+        self.id = id
+        self.version = version
+    }
+    
+    init(fromRow row: Row) {
+        self.id = row[DbVersion.colId]
+        self.version = row[DbVersion.colVersion]
     }
 }
 

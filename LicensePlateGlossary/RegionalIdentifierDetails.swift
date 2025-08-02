@@ -9,13 +9,17 @@ import SwiftUI
 
 struct RegionalIdentifierDetails: View {
     let country: Country
-    let regionalIdentifierType: RegionalIdentifierType
-    let regionalIdentifier: RegionalIdentifier
+    let regionalIdentifierType: PlateIdentifierType
+    let regionalIdentifier: PlateIdentifier
     
-    init(country: Country, regionalIdentifierType: RegionalIdentifierType, regionalIdentifier: RegionalIdentifier) {
+    let title: String
+    
+    init(country: Country, regionalIdentifierType: PlateIdentifierType, regionalIdentifier: PlateIdentifier) {
         self.country = country
         self.regionalIdentifierType = regionalIdentifierType
         self.regionalIdentifier = regionalIdentifier
+        
+        self.title = getTranslatedString(regionalIdentifier.name)
     }
     
     var body: some View {
@@ -26,14 +30,23 @@ struct RegionalIdentifierDetails: View {
             )
             
             Section {
-                Button {
-                    openSearchQueryOnMaps(query: getTranslatedString(regionalIdentifier.name))
-                } label: {
-                    Label("Search on Maps", systemImage: "map")
+                Text(title)
+                if let description = regionalIdentifier.description {
+                    Text(getTranslatedStringWithFormatting(description))
+                }
+            }
+            
+            if regionalIdentifier.isGeographic {
+                Section {
+                    Button {
+                        openSearchQueryOnMaps(query: getTranslatedString(regionalIdentifier.name))
+                    } label: {
+                        Label("Search on Maps", systemImage: "map")
+                    }
                 }
             }
         }
-        .navigationTitle(getTranslatedString(regionalIdentifier.name))
+        .navigationTitle(title)
     }
 }
 
@@ -44,25 +57,26 @@ struct RegionalIdentifierDetails: View {
             name: "country_xx",
             flagEmoji: "🏳️",
             defaultFont: "Swiss License Plates",
-            //genericPreview: "AB : CD 1234"
+            //genericPreview: "AB : CD 1234",
             genericPreview: "XX·123 456",
             description: "raw:**Hello** _World_",
             vanityPlatesPossible: true,
             vanityPlatesDescription: "raw: **Some** _Text_",
             hidden: false
         ),
-        regionalIdentifierType: RegionalIdentifierType(
+        regionalIdentifierType: PlateIdentifierType(
             id: 9999999,
             countryId: "XX",
             name: "cantons"
         ),
-        regionalIdentifier: RegionalIdentifier(
+        regionalIdentifier: PlateIdentifier(
             id: 9999999,
             countryId: "XX",
             typeId: 9999999,
             identifier: "YY",
             name: "raw:Sample Canton",
-            description: "raw:Some **Text**"
+            description: "raw:Some **Text**",
+            isGeographic: true
         )
     )
 }

@@ -30,14 +30,14 @@ struct LicensePlatePreview: View {
         self.plateTextSize = plateTextSize
     }
     
-    init(fromCountry country: Country, withCustomText customText: String? = nil) {
+    init(fromCountry country: Country, withCustomText customText: String? = nil, withPlateTextSize textSize: CGFloat? = nil) {
         plateText = customText ?? country.genericPreview ?? "???"
         plateFont = country.defaultFont
         plateTextColor = nil
         plateBackgroundColor = nil
         plateBorderColor = nil
         plateBorderWidth = nil
-        plateTextSize = nil
+        plateTextSize = textSize
     }
     
     init(fromPlateVariant variant: PlateVariant, andCountry country: Country, withTextSize textSize: CGFloat? = nil, withBorderSize borderSize: CGFloat? = nil) {
