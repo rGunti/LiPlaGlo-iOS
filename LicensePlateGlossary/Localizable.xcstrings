@@ -125,7 +125,14 @@
       }
     },
     "Data" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daten"
+          }
+        }
+      }
     },
     "Debug" : {
       "localizations" : {
@@ -202,7 +209,14 @@
       }
     },
     "Licenses & Attribution" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lizenzen & Namensnennung"
+          }
+        }
+      }
     },
     "Links" : {
       "localizations" : {
@@ -241,7 +255,7 @@
       }
     },
     "openpotato/kfz-kennzeichen" : {
-
+      "shouldTranslate" : false
     },
     "Out of use" : {
       "localizations" : {
@@ -331,31 +345,28 @@
         }
       }
     },
-    "Show on Maps" : {
-      "extractionState" : "stale",
+    "Software" : {
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Auf Maps zeigen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Show on Maps"
+            "value" : "Software"
           }
         }
       }
     },
-    "Software" : {
-
-    },
     "SQLite.swift" : {
-
+      "shouldTranslate" : false
     },
     "The data provided in this app is sourced from the following sources (if not stated otherwise)." : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daten, die in dieser App bereitgestellt werden, wurden aus den folgenden Quellen bereitgestellt (falls nicht anders beschrieben)."
+          }
+        }
+      }
     },
     "The information provided in this app is purely for informational purposes only and does not claim to be accurate, complete, or up-to-date. **THIS APP DOES NOT CONTAIN LEGAL ADVISE!**\n\nMost information is sourced from aggregation sites like Wikipedia and is provided under their respective license.\n\nPlease note that I am not affiliated with any of the organizations or brands mentioned in this app." : {
       "localizations" : {
@@ -368,7 +379,14 @@
       }
     },
     "This app was built with software components built by other developers and provided to others free of charge." : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese App wurde mit Softwarekomponenten erstellt, die von anderen Entwicklern entwickelt und anderen kostenlos zur Verfügung gestellt wurden."
+          }
+        }
+      }
     },
     "This license plate variant is not currently in use." : {
       "localizations" : {
@@ -381,7 +399,14 @@
       }
     },
     "This software would not have been possible without the work of others.\nFind below a list of projects that are used within this app.\n\nThanks to all these projects!" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Diese Software wäre ohne die Arbeit von anderen nicht möglich gewesen.\nUnten findest du eine Liste von Projekten, die in dieser App verwendet werden.\n\nVielen Dank an all diese Projekte!"
+          }
+        }
+      }
     },
     "Translations" : {
       "localizations" : {
@@ -424,27 +449,17 @@
       }
     },
     "Visit project page" : {
-
-    },
-    "Where is %@?" : {
-      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Wo ist %@?"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Where is %@?"
+            "value" : "Projektseite öffnen"
           }
         }
       }
     },
     "Wikipedia" : {
-
+      "shouldTranslate" : false
     }
   },
   "version" : "1.0"
