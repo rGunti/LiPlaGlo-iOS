@@ -12,6 +12,9 @@ struct RootScreen: View {
             Tab("Countries", systemImage: "flag") {
                 CountryView()
             }
+            Tab("Search", systemImage: "magnifyingglass") {
+                SearchView()
+            }
             Tab("Settings", systemImage: "gear") {
                 SettingsView()
             }
