@@ -23,10 +23,7 @@ struct SearchView: View {
                 Section(header: Text("Search Filters")) {
                     Picker("Country", selection: $selectedCountry) {
                         ForEach(countries, id: \.id) { country in
-                            HStack(alignment: .center) {
-                                Text(country.id)
-                                TranslatedText(country.name)
-                            }
+                            Text("\(country.flagEmoji.map { $0 + " " } ?? "")\(country.id) · \(getTranslatedString(country.name))")
                         }
                     }
                     TextField("Prefix", text: $prefix)
