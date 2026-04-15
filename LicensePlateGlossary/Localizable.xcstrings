@@ -141,6 +141,7 @@
       }
     },
     "Debug" : {
+      "extractionState" : "stale",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -154,7 +155,8 @@
             "value" : "Debug"
           }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "Description" : {
       "localizations" : {
