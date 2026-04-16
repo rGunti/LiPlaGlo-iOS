@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LicensePlatePreview: View {
-    private static let plateDefaultFont: String = "HelveticaNeue-CondensedBold"
+    static let plateDefaultFont: String = "HelveticaNeue-CondensedBold"
     private static let plateDefaultColor: Color = .primary
     private static let plateDefaultBackgroundColor: Color = .secondary
     

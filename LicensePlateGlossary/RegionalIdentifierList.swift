@@ -20,7 +20,7 @@ struct RegionalIdentifierList: View {
         self.type = type
         self.country = country
         self.identifiers = DbManager.instance.getIdentifiers(forCountry: type.countryId, ofType: type.id)
-        self.plateFont = country.defaultFont ?? "HelveticaNeue-CondensedBold"
+        self.plateFont = country.defaultFont ?? LicensePlatePreview.plateDefaultFont
     }
 
     var isSearching: Bool {
