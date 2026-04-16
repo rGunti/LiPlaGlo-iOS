@@ -1,8 +1,6 @@
 //
-//  LicensePlateGlossaryTests.swift
+//  DbManagerTests.swift
 //  LicensePlateGlossaryTests
-//
-//  Created by Raphael Guntersweiler on 10/07/2025.
 //
 
 import Testing
