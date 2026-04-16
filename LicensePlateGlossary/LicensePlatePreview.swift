@@ -76,8 +76,10 @@ struct LicensePlatePreview: View {
         }
         if let borderColor = plateBorderColor {
             base.border(borderColor, width: plateBorderWidth ?? 4)
+                .accessibilityLabel("Graphical license plate preview: \(plateText)")
         } else {
             base
+                .accessibilityLabel("Graphical license plate preview: \(plateText)")
         }
     }
 }

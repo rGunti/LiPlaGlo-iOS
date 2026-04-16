@@ -22,6 +22,8 @@ struct KeyValueRow: View {
             Spacer()
             Text(value).foregroundStyle(.secondary)
         }
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(key): \(value)")
     }
 }
 
