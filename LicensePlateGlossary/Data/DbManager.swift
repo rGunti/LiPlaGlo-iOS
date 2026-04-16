@@ -10,6 +10,7 @@ import SQLite
 
 class DbManager {
     private static let dbFilePath = Bundle.main.path(forResource: "liplaglo", ofType: "db")!;
+    private static let logger = AppLogger.logger(for: "DbManager")
     static let instance = DbManager()
     
     let dbConnection: Connection
@@ -34,7 +35,7 @@ class DbManager {
                 languages.append(I18nLanguage(fromRow: languageRow))
             }
         } catch {
-            print("Error when getting languages", error)
+            DbManager.logger.error("Error when getting languages: \(error)")
         }
         return languages
     }
@@ -46,7 +47,7 @@ class DbManager {
                 translations.append(UntranslatedString(fromRow: translationRow))
             }
         } catch {
-            print("Error when getting missing translations", error)
+            DbManager.logger.error("Error when getting missing translations: \(error)")
         }
         return translations
     }
@@ -59,7 +60,7 @@ class DbManager {
                 return I18nEntry(fromRow: row)
             }
         } catch {
-            print("Error when getting i18n string", error)
+            DbManager.logger.error("Error when getting i18n string: \(error)")
         }
         return nil
     }
@@ -83,7 +84,7 @@ class DbManager {
                 entries.append(I18nEntry(fromRow: row))
             }
         } catch {
-            print("Error when getting all translated strings for key \"\(key)\"", error)
+            DbManager.logger.error("Error when getting all translated strings for key \"\(key)\": \(error)")
         }
         return entries
     }
@@ -98,7 +99,7 @@ class DbManager {
                 countries.append(Country(fromRow: countryRow))
             }
         } catch {
-            print("Error when getting countries", error)
+            DbManager.logger.error("Error when getting countries: \(error)")
         }
         return countries
     }
@@ -109,7 +110,7 @@ class DbManager {
                 return Country(fromRow: countryRow)
             }
         } catch {
-            print("Error when getting country with id \"\(countryId)\"", error)
+            DbManager.logger.error("Error when getting country with id \"\(countryId)\": \(error)")
         }
         return nil
     }
@@ -123,7 +124,7 @@ class DbManager {
                 links.append(CountryLink(fromRow: linkRow))
             }
         } catch {
-            print("Error when getting country links", error)
+            DbManager.logger.error("Error when getting country links: \(error)")
         }
         return links
     }
@@ -137,7 +138,7 @@ class DbManager {
                 variants.append(PlateVariant(fromRow: variantRow))
             }
         } catch {
-            print("Error when getting plate variants", error)
+            DbManager.logger.error("Error when getting plate variants: \(error)")
         }
         return variants
     }
@@ -151,7 +152,7 @@ class DbManager {
                 types.append(PlateIdentifierType(fromRow: typeRow))
             }
         } catch {
-            print("Error when getting regional identifier types")
+            DbManager.logger.error("Error when getting regional identifier types: \(error)")
         }
         return types
     }
@@ -165,7 +166,7 @@ class DbManager {
                 identifiers.append(PlateIdentifier(fromRow: ident))
             }
         } catch {
-            print("Error when getting regional identifiers for country %s", countryId)
+            DbManager.logger.error("Error when getting regional identifiers for country \(countryId): \(error)")
         }
         return identifiers
     }
@@ -179,7 +180,7 @@ class DbManager {
                 identifiers.append(PlateIdentifier(fromRow: ident))
             }
         } catch {
-            print("Error when getting regional identifiers for country %s and type %d", countryId, typeId)
+            DbManager.logger.error("Error when getting regional identifiers for country \(countryId) and type \(typeId): \(error)")
         }
         return identifiers
     }
@@ -190,7 +191,7 @@ class DbManager {
                 return DbVersion(fromRow: ver)
             }
         } catch {
-            print("Error when getting database version", error)
+            DbManager.logger.error("Error when getting database version: \(error)")
         }
         return DbVersion(id: "ERR", version: "ERR")
     }
