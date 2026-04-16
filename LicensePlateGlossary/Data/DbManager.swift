@@ -9,7 +9,12 @@ import Foundation
 import SQLite
 
 class DbManager {
-    private static let dbFilePath = Bundle.main.path(forResource: "liplaglo", ofType: "db")!;
+    private static let dbFilePath: String = {
+        guard let path = Bundle.main.path(forResource: "liplaglo", ofType: "db") else {
+            fatalError("liplaglo.db missing from app bundle")
+        }
+        return path
+    }()
     private static let logger = AppLogger.logger(for: "DbManager")
     static let instance = DbManager()
     
