@@ -33,21 +33,12 @@ struct RegionalIdentifierList: View {
                 NavigationLink {
                     RegionalIdentifierDetails(country: country, regionalIdentifierType: type, regionalIdentifier: identifier)
                 } label: {
-                    GeometryReader { geo in
-                        HStack(alignment: .firstTextBaseline) {
-                            Text(
-                                identifier.identifier
-                            )
+                    HStack(alignment: .firstTextBaseline) {
+                        Text(identifier.identifier)
                             .font(.custom(self.plateFont, size: 20))
-                            .frame(
-                                width: geo.size.width * 0.2,
-                                height: geo.size.height)
-                            Text(getTranslatedStringWithFormatting(identifier.name))
-                                .frame(
-                                    width: geo.size.width * 0.8,
-                                    height: geo.size.height,
-                                    alignment: .leading)
-                        }
+                            .frame(minWidth: 50, alignment: .leading)
+                        Text(getTranslatedStringWithFormatting(identifier.name))
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
             }
