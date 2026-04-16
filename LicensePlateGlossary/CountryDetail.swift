@@ -99,15 +99,15 @@ struct CountryDetail: View {
             if links.count > 0 {
                 Section("Links") {
                     ForEach(links, id: \.link) { link in
-                        Link(destination: URL(string: link.link)!) {
-                            if let linkLabel = link.label {
-                                Label(
-                                    getTranslatedString(linkLabel),
-                                    systemImage: "link"
-                                )
-                            } else {
-                                Label(link.link, systemImage: "link")
+                        let label = link.label.map { getTranslatedString($0) } ?? link.link
+                        if let url = URL(string: link.link) {
+                            Link(destination: url) {
+                                Label(label, systemImage: "link")
                             }
+                        } else {
+                            Label(label, systemImage: "link")
+                                .foregroundStyle(.secondary)
+                                .disabled(true)
                         }
                     }
                 }
