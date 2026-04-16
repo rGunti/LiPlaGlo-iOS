@@ -41,6 +41,7 @@ struct RegionalIdentifierList: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
+                .accessibilityLabel("\(identifier.identifier.map(String.init).joined(separator: ". "))., \(getTranslatedString(identifier.name))")
             }
         }
         .navigationTitle(getTranslatedString(type.name))

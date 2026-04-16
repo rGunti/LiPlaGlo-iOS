@@ -81,10 +81,12 @@ struct CountryDetail: View {
                                     withBorderSize: 2
                                 )
                                 .frame(maxWidth: .infinity)
+                                .accessibilityHidden(true)
                                 Text(getTranslatedStringWithFormatting(variant.title))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
+                        .accessibilityLabel(getTranslatedString(variant.title))
                     }
                 }
             }
