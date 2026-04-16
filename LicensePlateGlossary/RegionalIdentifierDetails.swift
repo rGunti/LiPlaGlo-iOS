@@ -43,6 +43,7 @@ struct RegionalIdentifierDetails: View {
                     } label: {
                         Label("Search on Maps", systemImage: "map")
                     }
+                    .accessibilityHint("Opens Apple Maps to search for \(title)")
                 }
             }
         }

@@ -42,6 +42,7 @@ struct LicenseTextView: View {
                     Link(destination: itemUrl) {
                         Label("Visit project page", systemImage: "link")
                     }
+                    .accessibilityLabel("Visit \(title) project page")
                 }
                 
                 Text(LocalizedStringKey(bodyText))

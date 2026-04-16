@@ -27,7 +27,9 @@ struct SearchView: View {
                         }
                     }
                     TextField("Prefix", text: $prefix)
-                    TextField("Text", text: $searchText)
+                        .accessibilityLabel("Search by identifier")
+                    TextField("Name", text: $searchText)
+                        .accessibilityLabel("Search by name")
                     Button(action: { performSearch() }) {
                         Text("Search")
                             .frame(maxWidth: .infinity)
