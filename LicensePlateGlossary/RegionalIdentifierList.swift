@@ -13,8 +13,8 @@ struct RegionalIdentifierList: View {
     let country: Country
     let plateFont: String
     
-    @State var searchResults: [PlateIdentifier] = []
-    @State var searchQuery: String = ""
+    @State private var searchResults: [PlateIdentifier] = []
+    @State private var searchQuery: String = ""
     
     init(type: PlateIdentifierType, country: Country) {
         self.type = type
