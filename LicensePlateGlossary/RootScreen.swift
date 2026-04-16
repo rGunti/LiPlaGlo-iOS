@@ -9,6 +9,9 @@ import SwiftUI
 struct RootScreen: View {
     var body: some View {
         TabView {
+            Tab("Search", systemImage: "magnifyingglass") {
+                SearchView()
+            }
             Tab("Countries", systemImage: "flag") {
                 CountryView()
             }

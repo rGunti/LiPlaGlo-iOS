@@ -103,6 +103,17 @@ class DbManager {
         return countries
     }
     
+    func getCountry(_ countryId: String) -> Country? {
+        do {
+            if let countryRow = try dbConnection.pluck(DbTables.countries.filter(Country.colId == countryId)) {
+                return Country(fromRow: countryRow)
+            }
+        } catch {
+            print("Error when getting country with id \"\(countryId)\"", error)
+        }
+        return nil
+    }
+    
     func getLinksForCountry(_ countryId: String, forLanguage language: String) -> [CountryLink] {
         var links: [CountryLink] = []
         do {
