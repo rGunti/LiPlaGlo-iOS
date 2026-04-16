@@ -73,23 +73,16 @@ struct CountryDetail: View {
                         NavigationLink {
                             PlateVariantDetails(plateVariant: variant, country: country)
                         } label: {
-                            GeometryReader { geo in
-                                HStack(alignment: .firstTextBaseline) {
-                                    LicensePlatePreview(
-                                        fromPlateVariant: variant,
-                                        andCountry: country,
-                                        withTextSize: 20,
-                                        withBorderSize: 2
-                                    )
-                                    .frame(
-                                        width: geo.size.width * 0.5,
-                                        height: geo.size.height)
-                                    Text(getTranslatedStringWithFormatting(variant.title))
-                                        .frame(
-                                            width: geo.size.width * 0.5,
-                                            height: geo.size.height,
-                                            alignment: .leading)
-                                }
+                            HStack(alignment: .center) {
+                                LicensePlatePreview(
+                                    fromPlateVariant: variant,
+                                    andCountry: country,
+                                    withTextSize: 20,
+                                    withBorderSize: 2
+                                )
+                                .frame(maxWidth: .infinity)
+                                Text(getTranslatedStringWithFormatting(variant.title))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
                     }
