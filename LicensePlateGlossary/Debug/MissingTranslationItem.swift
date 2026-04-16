@@ -17,8 +17,8 @@ struct MissingTranslationItem: View {
         self.string = string
         self.availableLanguages = availableLanguages
         
-        self.missingLanguages = string.missingLanguages.map {
-            availableLanguages[$0]!
+        self.missingLanguages = string.missingLanguages.compactMap {
+            availableLanguages[$0]
         }
     }
     
