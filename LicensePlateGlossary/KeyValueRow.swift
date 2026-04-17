@@ -10,15 +10,21 @@ import SwiftUI
 struct KeyValueRow: View {
     let key: String
     let value: String
-    
-    init(key: String, value: String) {
+    let systemImage: String?
+
+    init(key: String, value: String, systemImage: String? = nil) {
         self.key = key
         self.value = value
+        self.systemImage = systemImage
     }
-    
+
     var body: some View {
         HStack {
-            Text(key)
+            if let systemImage {
+                Label(key, systemImage: systemImage)
+            } else {
+                Text(key)
+            }
             Spacer()
             Text(value).foregroundStyle(.secondary)
         }
@@ -30,6 +36,7 @@ struct KeyValueRow: View {
 #Preview {
     KeyValueRow(
         key: "Key",
-        value: "Value"
+        value: "Value",
+        systemImage: "star"
     )
 }

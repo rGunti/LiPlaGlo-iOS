@@ -321,6 +321,16 @@
         }
       }
     },
+    "Last updated at" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuletzt aktualisiert am"
+          }
+        }
+      }
+    },
     "Language" : {
       "extractionState" : "stale",
       "localizations" : {
