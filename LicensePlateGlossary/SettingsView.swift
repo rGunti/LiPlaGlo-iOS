@@ -30,7 +30,7 @@ struct SettingsView: View {
                     if let date = dbBuildDate {
                         KeyValueRow(
                             key: String(localized: "Last updated at"),
-                            value: date.formatted(date: .long, time: .omitted),
+                            value: date.formatted(date: .abbreviated, time: .omitted),
                             systemImage: "calendar"
                         )
                     }
