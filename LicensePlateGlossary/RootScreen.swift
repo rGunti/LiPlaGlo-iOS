@@ -19,5 +19,6 @@ struct RootScreen: View {
                 SettingsView()
             }
         }
+        .inAppSafari()
     }
 }

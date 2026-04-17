@@ -11,11 +11,10 @@ func isIPad() -> Bool {
 }
 
 func openSearchQueryOnMaps(query: String) {
-    let escapedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-    let searchUrl = URL(string: "maps:///search?query=\(escapedQuery)")
-    if let url = searchUrl, UIApplication.shared.canOpenURL(url) {
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
+    guard let escapedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+          let url = URL(string: "maps:///search?query=\(escapedQuery)"),
+          UIApplication.shared.canOpenURL(url) else { return }
+    UIApplication.shared.open(url, options: [:], completionHandler: nil)
 }
 
 func getAppVersion() -> String {

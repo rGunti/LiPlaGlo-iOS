@@ -13,6 +13,10 @@ struct PlateVariantDetails: View {
     
     var body: some View {
         List {
+            Section("Title") {
+                Text(getTranslatedString(plateVariant.title))
+            }
+            
             Section("Plate Preview") {
                 LicensePlatePreview(fromPlateVariant: plateVariant, andCountry: country)
             }

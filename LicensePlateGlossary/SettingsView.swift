@@ -36,7 +36,19 @@ struct SettingsView: View {
                         )
                     }
                 }
-                
+
+                Section("Generative AI") {
+                    Text("Parts of this app were developed with the assistance of generative AI tools. This app does not feature any AI tools itself.")
+                    NavigationLink {
+                        AIDisclosureView()
+                    } label: {
+                        Label(
+                            "About Use of AI",
+                            systemImage: "sparkles"
+                        )
+                    }
+                }
+
 #if DEBUG
                 Section("Debug") {
                     KeyValueRow(

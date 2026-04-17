@@ -27,6 +27,7 @@ struct CountryList: View {
                         TranslatedText(country.name)
                     }
                 }
+                .accessibilityLabel(getTranslatedString(country.name))
             }
         }
     }

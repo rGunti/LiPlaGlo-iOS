@@ -13,14 +13,14 @@ struct RegionalIdentifierList: View {
     let country: Country
     let plateFont: String
     
-    @State var searchResults: [PlateIdentifier] = []
-    @State var searchQuery: String = ""
+    @State private var searchResults: [PlateIdentifier] = []
+    @State private var searchQuery: String = ""
     
     init(type: PlateIdentifierType, country: Country) {
         self.type = type
         self.country = country
         self.identifiers = DbManager.instance.getIdentifiers(forCountry: type.countryId, ofType: type.id)
-        self.plateFont = country.defaultFont ?? "HelveticaNeue-CondensedBold"
+        self.plateFont = country.defaultFont ?? LicensePlatePreview.plateDefaultFont
     }
 
     var isSearching: Bool {
@@ -33,23 +33,15 @@ struct RegionalIdentifierList: View {
                 NavigationLink {
                     RegionalIdentifierDetails(country: country, regionalIdentifierType: type, regionalIdentifier: identifier)
                 } label: {
-                    GeometryReader { geo in
-                        HStack(alignment: .firstTextBaseline) {
-                            Text(
-                                identifier.identifier
-                            )
+                    HStack(alignment: .firstTextBaseline) {
+                        Text(identifier.identifier)
                             .font(.custom(self.plateFont, size: 20))
-                            .frame(
-                                width: geo.size.width * 0.2,
-                                height: geo.size.height)
-                            Text(getTranslatedStringWithFormatting(identifier.name))
-                                .frame(
-                                    width: geo.size.width * 0.8,
-                                    height: geo.size.height,
-                                    alignment: .leading)
-                        }
+                            .frame(minWidth: 50, alignment: .leading)
+                        Text(getTranslatedStringWithFormatting(identifier.name))
+                            .frame(maxWidth: .infinity, alignment: .leading)
                     }
                 }
+                .accessibilityLabel("\(identifier.identifier.map(String.init).joined(separator: ". "))., \(getTranslatedString(identifier.name))")
             }
         }
         .navigationTitle(getTranslatedString(type.name))

@@ -9,9 +9,9 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct MissingTranslationDetails: View {
-    @State var isKeyCopied: Bool = false
-    @State var isMessageCopied: Bool = false
-    @State var isInsertSqlCopied: Bool = false
+    @State private var isKeyCopied: Bool = false
+    @State private var isMessageCopied: Bool = false
+    @State private var isInsertSqlCopied: Bool = false
     
     let string: UntranslatedString
     let entries: [String: I18nEntry]
@@ -37,9 +37,7 @@ struct MissingTranslationDetails: View {
                         forPasteboardType: UTType.plainText.identifier)
                     self.isKeyCopied = true
                 }
-                .alert(isPresented: $isKeyCopied) {
-                    Alert(title: Text("Copied key to clipboard"))
-                }
+                .alert("Copied key to clipboard", isPresented: $isKeyCopied) {}
 
             ForEach(self.languages, id: \.id) { language in
                 Section("\(language.id) – \(language.nativeLanguageName) (\(language.englishLanguageName))") {
@@ -53,9 +51,7 @@ struct MissingTranslationDetails: View {
                                 forPasteboardType: UTType.plainText.identifier
                             )
                             self.isMessageCopied = true
-                        }.alert(isPresented: $isMessageCopied) {
-                            Alert(title: Text("Copied message to clipboard"))
-                        }
+                        }.alert("Copied message to clipboard", isPresented: $isMessageCopied) {}
                     } else {
                         Text("missing translation")
                             .italic()
@@ -67,9 +63,7 @@ struct MissingTranslationDetails: View {
                             )
                             self.isInsertSqlCopied = true
                         }
-                            .alert(isPresented: $isInsertSqlCopied) {
-                                Alert(title: Text("Copied Insert Statement to clipboard"))
-                            }
+                            .alert("Copied Insert Statement to clipboard", isPresented: $isInsertSqlCopied) {}
                     }
                 }
             }

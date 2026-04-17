@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CountryView: View {
     var body: some View {
-        NavigationView {
+        NavigationStack {
             CountryList()
                 .navigationTitle("Countries")
         }

@@ -73,25 +73,20 @@ struct CountryDetail: View {
                         NavigationLink {
                             PlateVariantDetails(plateVariant: variant, country: country)
                         } label: {
-                            GeometryReader { geo in
-                                HStack(alignment: .firstTextBaseline) {
-                                    LicensePlatePreview(
-                                        fromPlateVariant: variant,
-                                        andCountry: country,
-                                        withTextSize: 20,
-                                        withBorderSize: 2
-                                    )
-                                    .frame(
-                                        width: geo.size.width * 0.5,
-                                        height: geo.size.height)
-                                    Text(getTranslatedStringWithFormatting(variant.title))
-                                        .frame(
-                                            width: geo.size.width * 0.5,
-                                            height: geo.size.height,
-                                            alignment: .leading)
-                                }
+                            HStack(alignment: .center) {
+                                LicensePlatePreview(
+                                    fromPlateVariant: variant,
+                                    andCountry: country,
+                                    withTextSize: 20,
+                                    withBorderSize: 2
+                                )
+                                .frame(maxWidth: .infinity)
+                                .accessibilityHidden(true)
+                                Text(getTranslatedStringWithFormatting(variant.title))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                             }
                         }
+                        .accessibilityLabel(getTranslatedString(variant.title))
                     }
                 }
             }
@@ -99,15 +94,15 @@ struct CountryDetail: View {
             if links.count > 0 {
                 Section("Links") {
                     ForEach(links, id: \.link) { link in
-                        Link(destination: URL(string: link.link)!) {
-                            if let linkLabel = link.label {
-                                Label(
-                                    getTranslatedString(linkLabel),
-                                    systemImage: "link"
-                                )
-                            } else {
-                                Label(link.link, systemImage: "link")
+                        let label = link.label.map { getTranslatedString($0) } ?? link.link
+                        if let url = URL(string: link.link) {
+                            Link(destination: url) {
+                                Label(label, systemImage: "link")
                             }
+                        } else {
+                            Label(label, systemImage: "link")
+                                .foregroundStyle(.secondary)
+                                .disabled(true)
                         }
                     }
                 }
