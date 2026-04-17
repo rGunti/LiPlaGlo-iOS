@@ -200,4 +200,19 @@ class DbManager {
         }
         return DbVersion(id: "ERR", version: "ERR")
     }
+
+    func getDatabaseBuildDate() -> Date? {
+        do {
+            let query = DbTables.version.filter(DbVersion.colId == "db_build_date").limit(1)
+            if let row = try dbConnection.pluck(query) {
+                let isoString = row[DbVersion.colVersion]
+                let formatter = ISO8601DateFormatter()
+                formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+                return formatter.date(from: isoString)
+            }
+        } catch {
+            DbManager.logger.error("Error when getting database build date: \(error)")
+        }
+        return nil
+    }
 }
