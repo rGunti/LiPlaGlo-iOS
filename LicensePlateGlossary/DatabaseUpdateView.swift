@@ -79,6 +79,14 @@ struct DatabaseUpdateView: View {
                         .font(.caption)
                 }
             }
+
+            Section {
+                Link(destination: URL(string: "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement")!) {
+                    Label("GitHub Privacy Policy", systemImage: "hand.raised")
+                }
+            } footer: {
+                Text("Database updates are fetched from GitHub. GitHub's privacy policy applies when checking for or downloading updates.")
+            }
         }
         .navigationTitle("Database")
         .navigationBarTitleDisplayMode(.inline)
