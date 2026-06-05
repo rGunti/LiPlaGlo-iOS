@@ -53,6 +53,9 @@ struct DatabaseUpdateView: View {
                             showPrivacyConsent = true
                         } else {
                             otaUpdatesEnabled = newValue
+                            if !newValue {
+                                hasAcceptedPrivacyPolicy = false
+                            }
                         }
                     }
                 ))
