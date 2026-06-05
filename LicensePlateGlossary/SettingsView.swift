@@ -24,9 +24,20 @@ struct SettingsView: View {
                     NavigationLink {
                         DatabaseUpdateView()
                     } label: {
-                        Label("Database", systemImage: "cylinder")
-                            .badge(pendingUpdateVersion.isEmpty ? 0 : 1)
-                            .badgeProminence(BadgeProminence.increased)
+                        LabeledContent {
+                            VStack(alignment: .trailing) {
+                                Text(DbManager.instance.getDatabaseVersion().version)
+                                if let date = DbManager.instance.getDatabaseBuildDate() {
+                                    Text(date.formatted(date: .abbreviated, time: .omitted))
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                        } label: {
+                            Label("Database", systemImage: "cylinder")
+                        }
+                        .badge(pendingUpdateVersion.isEmpty ? 0 : 1)
+                        .badgeProminence(BadgeProminence.increased)
                     }
                 }
 
