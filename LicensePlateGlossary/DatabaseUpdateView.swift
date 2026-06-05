@@ -15,6 +15,9 @@ struct DatabaseUpdateView: View {
     @State private var updateError: String? = nil
     @State private var isUserDbActive = DatabaseUpdateService.isUserDatabaseInstalled()
     @State private var showRollbackConfirm = false
+    @AppStorage("otaUpdatesEnabled") private var otaUpdatesEnabled = false
+    @AppStorage("hasAcceptedGitHubPrivacyPolicy") private var hasAcceptedPrivacyPolicy = false
+    @State private var showPrivacyConsent = false
 
     var body: some View {
         List {
@@ -41,7 +44,20 @@ struct DatabaseUpdateView: View {
             }
 
             Section("Updates") {
-                if isCheckingForUpdates {
+                Toggle("Automatic Update Checks", isOn: Binding(
+                    get: { otaUpdatesEnabled },
+                    set: { newValue in
+                        if newValue && !hasAcceptedPrivacyPolicy {
+                            showPrivacyConsent = true
+                        } else {
+                            otaUpdatesEnabled = newValue
+                        }
+                    }
+                ))
+                if !otaUpdatesEnabled {
+                    Label("Update checks are disabled.", systemImage: "bell.slash")
+                        .foregroundStyle(.secondary)
+                } else if isCheckingForUpdates {
                     HStack {
                         ProgressView()
                             .padding(.trailing, 4)
@@ -100,7 +116,17 @@ struct DatabaseUpdateView: View {
         } message: {
             Text("The downloaded database will be deleted. You can download it again at any time.")
         }
+        .alert("GitHub Privacy Policy", isPresented: $showPrivacyConsent) {
+            Button("Accept & Enable") {
+                hasAcceptedPrivacyPolicy = true
+                otaUpdatesEnabled = true
+            }
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("Checking for and downloading database updates connects to GitHub. GitHub's privacy policy applies. See the link below for details.")
+        }
         .task {
+            guard otaUpdatesEnabled else { return }
             isCheckingForUpdates = true
             defer { isCheckingForUpdates = false }
             availableUpdate = try? await DatabaseUpdateService.checkForUpdate(
