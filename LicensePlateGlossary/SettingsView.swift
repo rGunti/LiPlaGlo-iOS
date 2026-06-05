@@ -25,8 +25,9 @@ struct SettingsView: View {
                         DatabaseUpdateView()
                     } label: {
                         Label("Database", systemImage: "cylinder")
+                            .badge(pendingUpdateVersion.isEmpty ? 0 : 1)
+                            .badgeProminence(BadgeProminence.increased)
                     }
-                    .badge(pendingUpdateVersion.isEmpty ? 0 : 1)
                 }
 
                 Section {
