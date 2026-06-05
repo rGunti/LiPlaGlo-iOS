@@ -17,6 +17,8 @@ struct DatabaseUpdateView: View {
     @State private var showRollbackConfirm = false
     @AppStorage("otaUpdatesEnabled") private var otaUpdatesEnabled = false
     @AppStorage("hasAcceptedGitHubPrivacyPolicy") private var hasAcceptedPrivacyPolicy = false
+    @AppStorage("autoCheckOnStartup") private var autoCheckOnStartup = true
+    @AppStorage("pendingUpdateVersion") private var pendingUpdateVersion = ""
     @State private var showPrivacyConsent = false
 
     var body: some View {
@@ -44,6 +46,8 @@ struct DatabaseUpdateView: View {
             }
 
             Section("Updates") {
+                Toggle("Check for Updates on Startup", isOn: $autoCheckOnStartup)
+                    .disabled(!otaUpdatesEnabled || !hasAcceptedPrivacyPolicy)
                 Toggle("Automatic Update Checks", isOn: Binding(
                     get: { otaUpdatesEnabled },
                     set: { newValue in
@@ -124,6 +128,9 @@ struct DatabaseUpdateView: View {
             Button("Cancel", role: .cancel) {}
         } message: {
             Text("Checking for and downloading database updates connects to GitHub. GitHub's privacy policy applies. See the link below for details.")
+        }
+        .onAppear {
+            pendingUpdateVersion = ""
         }
         .task(id: otaUpdatesEnabled) {
             guard otaUpdatesEnabled else { return }

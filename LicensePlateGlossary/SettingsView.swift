@@ -10,6 +10,7 @@ struct SettingsView: View {
     let currentYear = Calendar.current.component(.year, from: Date()).description
     let appVersion = getAppVersion()
     let appBuild = getBuildNumber()
+    @AppStorage("pendingUpdateVersion") private var pendingUpdateVersion = ""
 
     var body: some View {
         NavigationStack {
@@ -25,6 +26,7 @@ struct SettingsView: View {
                     } label: {
                         Label("Database", systemImage: "cylinder")
                     }
+                    .badge(pendingUpdateVersion.isEmpty ? 0 : 1)
                 }
 
                 Section {

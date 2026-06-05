@@ -8,6 +8,10 @@ import SwiftUI
 
 struct RootScreen: View {
     @State private var updateCompletedVersion: String? = nil
+    @AppStorage("autoCheckOnStartup") private var autoCheckOnStartup = true
+    @AppStorage("otaUpdatesEnabled") private var otaUpdatesEnabled = false
+    @AppStorage("hasAcceptedGitHubPrivacyPolicy") private var hasAcceptedPrivacyPolicy = false
+    @AppStorage("pendingUpdateVersion") private var pendingUpdateVersion = ""
 
     var body: some View {
         TabView {
@@ -20,9 +24,17 @@ struct RootScreen: View {
             Tab("Settings", systemImage: "gear") {
                 SettingsView()
             }
+            .badge(pendingUpdateVersion.isEmpty ? 0 : 1)
         }
         .id(DbManager.instance.reloadToken)
         .inAppSafari()
+        .task {
+            guard autoCheckOnStartup && otaUpdatesEnabled && hasAcceptedPrivacyPolicy else { return }
+            let current = DbManager.instance.getDatabaseVersion().version
+            if let release = try? await DatabaseUpdateService.checkForUpdate(currentVersion: current) {
+                pendingUpdateVersion = release.version
+            }
+        }
         .onReceive(NotificationCenter.default.publisher(for: .databaseDidUpdate)) { note in
             updateCompletedVersion = note.object as? String
         }
