@@ -80,6 +80,6 @@ struct DatabaseUpdateServiceTests {
     // MARK: - Helpers
 
     private func makeRelease(tagName: String = "v1.4.0", assets: [GitHubAsset] = []) -> GitHubRelease {
-        GitHubRelease(tagName: tagName, assets: assets)
+        GitHubRelease(tagName: tagName, name: nil, htmlUrl: "https://github.com/rGunti/LiPlaGlo-Db/releases/tag/\(tagName)", assets: assets, body: nil)
     }
 }
