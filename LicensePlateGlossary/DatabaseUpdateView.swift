@@ -46,9 +46,7 @@ struct DatabaseUpdateView: View {
             }
 
             Section("Updates") {
-                Toggle("Check for Updates on Startup", isOn: $autoCheckOnStartup)
-                    .disabled(!otaUpdatesEnabled || !hasAcceptedPrivacyPolicy)
-                Toggle("Automatic Update Checks", isOn: Binding(
+                Toggle("Check for Database Updates online", isOn: Binding(
                     get: { otaUpdatesEnabled },
                     set: { newValue in
                         if newValue && !hasAcceptedPrivacyPolicy {
@@ -58,6 +56,10 @@ struct DatabaseUpdateView: View {
                         }
                     }
                 ))
+                if otaUpdatesEnabled {
+                    Toggle("Check for Updates on Startup", isOn: $autoCheckOnStartup)
+                        .disabled(!hasAcceptedPrivacyPolicy)
+                }
                 if !otaUpdatesEnabled {
                     Label("Update checks are disabled.", systemImage: "bell.slash")
                         .foregroundStyle(.secondary)
