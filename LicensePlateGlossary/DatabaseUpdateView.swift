@@ -45,7 +45,7 @@ struct DatabaseUpdateView: View {
                 }
             }
 
-            Section("Updates") {
+            Section {
                 Toggle("Check for Database Updates online", isOn: Binding(
                     get: { otaUpdatesEnabled },
                     set: { newValue in
@@ -56,49 +56,56 @@ struct DatabaseUpdateView: View {
                         }
                     }
                 ))
+                
                 if otaUpdatesEnabled {
                     Toggle("Check for Updates on Startup", isOn: $autoCheckOnStartup)
                         .disabled(!hasAcceptedPrivacyPolicy)
                 }
-                if !otaUpdatesEnabled {
-                    Label("Update checks are disabled.", systemImage: "bell.slash")
-                        .foregroundStyle(.secondary)
-                } else if isCheckingForUpdates {
-                    HStack {
-                        ProgressView()
-                            .padding(.trailing, 4)
-                        Text("Checking for updates…")
-                            .foregroundStyle(.secondary)
-                    }
-                } else if isDownloading {
-                    HStack {
-                        ProgressView()
-                            .padding(.trailing, 4)
-                        Text("Downloading…")
-                            .foregroundStyle(.secondary)
-                    }
-                } else if let update = availableUpdate {
-                    if let notes = update.body, !notes.isEmpty {
-                        ReleaseNotesView(markdown: notes)
-                    }
-                    Button {
-                        Task { await downloadUpdate() }
-                    } label: {
-                        Label("Update to \(update.tagName)", systemImage: "arrow.down.circle")
-                    }
-                    if let url = update.releasePageURL {
-                        Link(destination: url) {
-                            Label("View release on GitHub", systemImage: "safari")
+            } header: {
+                Text("Updates")
+            } footer: {
+                Text("Database updates add new countries, plate variants, and regional identifiers, keeping the information in this app accurate and up to date.")
+            }
+
+            if otaUpdatesEnabled {
+                Section("Available Update") {
+                    if isCheckingForUpdates {
+                        HStack {
+                            ProgressView()
+                                .padding(.trailing, 4)
+                            Text("Checking for updates…")
+                                .foregroundStyle(.secondary)
                         }
+                    } else if isDownloading {
+                        HStack {
+                            ProgressView()
+                                .padding(.trailing, 4)
+                            Text("Downloading…")
+                                .foregroundStyle(.secondary)
+                        }
+                    } else if let update = availableUpdate {
+                        if let notes = update.body, !notes.isEmpty {
+                            ReleaseNotesView(markdown: notes)
+                        }
+                        Button {
+                            Task { await downloadUpdate() }
+                        } label: {
+                            Label("Update to \(update.tagName)", systemImage: "arrow.down.circle")
+                        }
+                        if let url = update.releasePageURL {
+                            Link(destination: url) {
+                                Label("View release on GitHub", systemImage: "safari")
+                            }
+                        }
+                    } else {
+                        Label("Database is up to date.", systemImage: "checkmark.circle")
+                            .foregroundStyle(.secondary)
                     }
-                } else {
-                    Label("Database is up to date.", systemImage: "checkmark.circle")
-                        .foregroundStyle(.secondary)
-                }
-                if let error = updateError {
-                    Text(error)
-                        .foregroundStyle(.red)
-                        .font(.caption)
+                    if let error = updateError {
+                        Text(error)
+                            .foregroundStyle(.red)
+                            .font(.caption)
+                    }
                 }
             }
 
