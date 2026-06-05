@@ -6,20 +6,17 @@
 //
 
 import Foundation
+import Observation
 import SQLite
 
+@Observable
 class DbManager {
-    private static let dbFilePath: String = {
-        guard let path = Bundle.main.path(forResource: "liplaglo", ofType: "db") else {
-            fatalError("liplaglo.db missing from app bundle")
-        }
-        return path
-    }()
     private static let logger = AppLogger.logger(for: "DbManager")
     static let instance = DbManager()
-    
-    let dbConnection: Connection
-    
+
+    var dbConnection: Connection
+    private(set) var reloadToken: Int = 0
+
     private init() {
         do {
             dbConnection = try DbManager.openDatabase()
@@ -27,9 +24,30 @@ class DbManager {
             fatalError(error.localizedDescription)
         }
     }
-    
+
+    func reloadDatabase() {
+        do {
+            dbConnection = try DbManager.openDatabase()
+            reloadToken += 1
+        } catch {
+            DbManager.logger.error("Failed to reload database: \(error)")
+        }
+    }
+
+    private static func resolveDbPath() -> String {
+        let fm = FileManager.default
+        if let supportDir = fm.urls(for: .applicationSupportDirectory, in: .userDomainMask).first {
+            let userPath = supportDir.appendingPathComponent("liplaglo.db").path
+            if fm.fileExists(atPath: userPath) { return userPath }
+        }
+        guard let bundlePath = Bundle.main.path(forResource: "liplaglo", ofType: "db") else {
+            fatalError("liplaglo.db missing from app bundle")
+        }
+        return bundlePath
+    }
+
     private static func openDatabase() throws -> Connection {
-        let db = try Connection(dbFilePath, readonly: true)
+        let db = try Connection(resolveDbPath(), readonly: true)
         return db
     }
     

@@ -10,9 +10,8 @@ struct SettingsView: View {
     let currentYear = Calendar.current.component(.year, from: Date()).description
     let appVersion = getAppVersion()
     let appBuild = getBuildNumber()
-    let dbVersion = DbManager.instance.getDatabaseVersion()
-    let dbBuildDate = DbManager.instance.getDatabaseBuildDate()
-    
+    @AppStorage("pendingUpdateVersion") private var pendingUpdateVersion = ""
+
     var body: some View {
         NavigationStack {
             List {
@@ -22,18 +21,27 @@ struct SettingsView: View {
                         value: "Ver. \(appVersion) (\(appBuild))",
                         systemImage: "app"
                     )
-                    KeyValueRow(
-                        key: "Database Version",
-                        value: dbVersion.version,
-                        systemImage: "cylinder"
-                    )
-                    if let date = dbBuildDate {
-                        KeyValueRow(
-                            key: String(localized: "Last updated at"),
-                            value: date.formatted(date: .abbreviated, time: .omitted),
-                            systemImage: "calendar"
-                        )
+                    NavigationLink {
+                        DatabaseUpdateView()
+                    } label: {
+                        LabeledContent {
+                            VStack(alignment: .trailing) {
+                                Text(DbManager.instance.getDatabaseVersion().version)
+                                if let date = DbManager.instance.getDatabaseBuildDate() {
+                                    Text(date.formatted(date: .abbreviated, time: .omitted))
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                        } label: {
+                            Label("Database", systemImage: "cylinder")
+                        }
+                        .badge(pendingUpdateVersion.isEmpty ? 0 : 1)
+                        .badgeProminence(BadgeProminence.increased)
                     }
+                }
+
+                Section {
                     Text("© \(currentYear), Raphael Guntersweiler")
                     Text("The information provided in this app is purely for informational purposes only and does not claim to be accurate, complete, or up-to-date. **THIS APP DOES NOT CONTAIN LEGAL ADVISE!**\n\nMost information is sourced from aggregation sites like Wikipedia and is provided under their respective license.\n\nPlease note that I am not affiliated with any of the organizations or brands mentioned in this app.")
                     NavigationLink {
@@ -71,7 +79,8 @@ struct SettingsView: View {
                     }
                 }
 #endif
-            }.navigationTitle("Settings")
+            }
+            .navigationTitle("Settings")
         }
     }
 }

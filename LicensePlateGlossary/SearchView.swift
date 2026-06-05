@@ -16,6 +16,7 @@ struct SearchView: View {
     @State private var searchResults: [PlateIdentifier] = []
     @State private var allIdentifiers: [PlateIdentifier] = []
     @State private var hasSearched: Bool = false
+    @AppStorage("pendingUpdateVersion") private var pendingUpdateVersion = ""
     
     var body: some View {
         NavigationStack {
@@ -54,6 +55,30 @@ struct SearchView: View {
                 }
             }
             .navigationTitle("Search")
+            .safeAreaInset(edge: .bottom) {
+                if !pendingUpdateVersion.isEmpty {
+                    NavigationLink(destination: DatabaseUpdateView()) {
+                        HStack {
+                            Image(systemName: "arrow.down.circle")
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text("Database update available")
+                                    .font(.subheadline).fontWeight(.semibold)
+                                Text("Tap to go to Settings → Database")
+                                    .font(.caption)
+                            }
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                        }
+                        .padding()
+                        .background(.tint, in: RoundedRectangle(cornerRadius: 12))
+                        .foregroundStyle(.white)
+                        .padding(.horizontal)
+                        .padding(.bottom, 8)
+                        .shadow(radius: 4)
+                    }
+                }
+            }
             .onAppear {
                 if selectedCountry.isEmpty && !countries.isEmpty {
                     selectedCountry = countries[0].id
