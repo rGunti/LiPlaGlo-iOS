@@ -125,7 +125,7 @@ struct DatabaseUpdateView: View {
         } message: {
             Text("Checking for and downloading database updates connects to GitHub. GitHub's privacy policy applies. See the link below for details.")
         }
-        .task {
+        .task(id: otaUpdatesEnabled) {
             guard otaUpdatesEnabled else { return }
             isCheckingForUpdates = true
             defer { isCheckingForUpdates = false }
